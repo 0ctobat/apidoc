@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>dOctobat</title>
+    <title>Octobat API Documentation</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["ruby"]);
+          setupLanguages(["shell","ruby"]);
         });
       </script>
   </head>
@@ -49,6 +49,7 @@
     </a>
     <div class="tocify-wrapper">
         <div class="lang-selector">
+              <a href="#" data-language-name="shell">curl</a>
               <a href="#" data-language-name="ruby">ruby</a>
         </div>
       <div id="toc">
@@ -57,222 +58,1204 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the <a href="https://www.octobat.com/">Octobat</a> documentation. </p>
+        <h1 id='introduction'>Introduction</h1><pre><code class="highlight ruby"><span class="c1"># Bundler: Add to your Gemfile</span>
+<span class="n">gem</span> <span class="s2">"octobat"</span>
+</code></pre>
+<pre><code class="highlight plaintext">API Endpoint
+https://api.octobat.com 
+</code></pre>
 
-<p>We advice you to follow this documentation when subscribing to Octobat.</p>
-<h1 id='environment'>Environment</h1>
+<p>The Octobat API is organized around REST. Our API is designed to have predictable, resource-oriented URLs and to use HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP verbs, which can be understood by off-the-shelf HTTP clients.</p>
+
+<p>JSON will be returned in all responses from the API, including errors.</p>
+
+<p>To make the Octobat API as secure as possible. Authentication is performed through HTTP Basic Auth. Credentials can be found on your Octobat account menu, in the &ldquo;API Keys&rdquo; section.</p>
+<h1 id='authentication'>Authentication</h1><pre><code class="highlight shell"><span class="c"># Example request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/customers <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+
+<span class="c"># curl uses the -u flag to pass basic auth credentials</span>
+<span class="c"># (adding a colon after your API key will prevent it </span>
+<span class="c"># from asking you for a password).</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Example request</span>
+<span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="c1"># Authentication is transparently handled for you</span>
+<span class="c1"># in subsequent method calls.</span>
+</code></pre>
+
+<p>Authentication to the API occurs via HTTP Basic Auth. Provide your API key as the basic auth username. You do not need to provide a password.
+All API requests must be made over HTTPS. Calls made over plain HTTP will fail. You must authenticate for all requests.
+You can manage your API keys from your account. Your API keys carry many privileges, so be sure to keep them secret!</p>
+<h1 id='errors'>Errors</h1><pre><code class="highlight plaintext">HTTP status codes summary
+
+200 OK - Everything worked as expected.
+
+401 Unauthorized - No valid API credentials provided.
+
+403 Forbidden - You are not authorized to access the requested item.
+
+404 Not Found - The requested item doesn't exist.
+
+406 Unacceptable - Your request format was not supported. Use JSON.
+
+409 Conflict - The data you submitted is in conflict with existing data.
+
+422 Unprocessable Entity - Often missing a required parameter.
+
+429 Too Many Requests - You sent us too many API requests in a row. Please retry later.
+
+500, 502, 503, 504 Server errors - something went wrong on Octobat's end.
+
+</code></pre>
+
+<p>Octobat uses conventional HTTP response codes to indicate success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from the provided information (e.g. a required parameter was missing, a charge failed, etc.), and codes in the 5xx range indicate an error with Octobat&rsquo;s servers.</p>
+<h1 id='numbering-sequences'>Numbering sequences</h1><h2 id='the-numbering-sequence-object'>The numbering sequence object</h2>
 <blockquote>
-<p>Example B2B current_user object</p>
+<p>Example object</p>
 </blockquote>
-<pre><code class="highlight ruby"><span class="c1">#&lt;User:0xaa48a8&gt; {</span>
-  <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="s2">"contact@octobat.com"</span><span class="p">,</span>
-  <span class="ss">:business_type</span> <span class="o">=&gt;</span> <span class="s2">"B2B"</span><span class="p">,</span> <span class="c1"># or B2C but business_name will be blank</span>
-  <span class="ss">:business_name</span> <span class="o">=&gt;</span> <span class="s2">"Octobat"</span><span class="p">,</span>
-  <span class="ss">:first_name</span> <span class="o">=&gt;</span> <span class="s2">"Nicolas"</span><span class="p">,</span>
-  <span class="ss">:last_name</span> <span class="o">=&gt;</span> <span class="s2">"Guillemain"</span><span class="p">,</span>
-  <span class="ss">:address</span> <span class="o">=&gt;</span> <span class="s2">"151 rue Montmartre"</span><span class="p">,</span>
-  <span class="ss">:zip_code</span> <span class="o">=&gt;</span> <span class="s2">"75002"</span><span class="p">,</span>
-  <span class="ss">:city</span> <span class="o">=&gt;</span> <span class="s2">"Paris"</span><span class="p">,</span>
-  <span class="ss">:country</span> <span class="o">=&gt;</span> <span class="s2">"France"</span><span class="p">,</span>
-  <span class="ss">:vat_number</span> <span class="o">=&gt;</span> <span class="s2">"FR60528551658"</span><span class="p">,</span>
-  <span class="ss">:customer_stripe_id</span> <span class="o">=&gt;</span> <span class="s2">"cus_5ApnZITyBNjwQ8"</span>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_ns_14235277139j06b2fa639d"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"numbering_sequence"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"is_default"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OC"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"example"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OC-2015-02-001"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id='attributes'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>object:</strong></td>
+<td><strong>string</strong> equals to numbering_sequence</td>
+</tr>
+<tr>
+<td><strong>is_default:</strong></td>
+<td><strong>boolean</strong> Only one numbering sequence can be the default one, which is selected if no numbering sequence is chosen during invoice creation</td>
+</tr>
+<tr>
+<td><strong>prefix:</strong></td>
+<td><strong>string</strong> The prefix of each invoice number in this sequence</td>
+</tr>
+<tr>
+<td><strong>example:</strong></td>
+<td><strong>string</strong> An example of an invoice number that can be generated within this sequence.</td>
+</tr>
+</tbody></table>
+<h2 id='listing-numbering-sequences'>Listing numbering sequences</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+GET https://api.octobat.com/numbering_sequences/
+
+<span class="c"># Example request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/numbering_sequences <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"object"</span>: <span class="s2">"list"</span>,
+  <span class="s2">"data"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"oc_ns_14235277139j06b2fa639d"</span>,
+      <span class="s2">"object"</span>: <span class="s2">"numbering_sequence"</span>,
+      <span class="s2">"is_default"</span>: <span class="nb">true</span>,
+      <span class="s2">"prefix"</span>: <span class="s2">"OC"</span>,
+      <span class="s2">"example"</span>: <span class="s2">"OC-2015-02-001"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="no">Octobat</span><span class="o">::</span><span class="no">NumberingSequence</span><span class="p">.</span><span class="nf">all</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="no">Octobat</span><span class="o">::</span><span class="no">NumberingSequence</span><span class="p">.</span><span class="nf">all</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::ListObject:0x3fe634d74498&gt; JSON: {</span>
+  <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"list"</span><span class="p">,</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="c1">#&lt;Octobat::NumberingSequence id=oc_ns_14235277139j06b2fa639d 0x00000a&gt; JSON: {</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_ns_14235277139j06b2fa639d"</span><span class="p">,</span>
+      <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"numbering_sequence"</span><span class="p">,</span>
+      <span class="s2">"is_default"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+      <span class="s2">"prefix"</span><span class="p">:</span> <span class="s2">"OC"</span><span class="p">,</span>
+      <span class="s2">"example"</span><span class="p">:</span> <span class="s2">"OC-2015-02-001"</span>
+    <span class="p">},</span>
+    <span class="c1">#&lt;Octobat::NumberingSequence[...] ...&gt;,</span>
+    <span class="c1">#&lt;Octobat::NumberingSequence[...] ...&gt;</span>
+  <span class="p">]</span>
 <span class="p">}</span>
 </code></pre>
 
-<p>Will be very helpful that you have these fields in your own database.</p>
-
-<p><aside class="notice">
-<code class="prettyprint">current_user</code> is your customer.
-</aside></p>
-<h1 id='requirements'>Requirements</h1>
-<p>To ensure that all your invoices are correctly generated, you must follow this pattern for your Stripe API calls.</p>
-<h2 id='customers-amp-cards'>Customers &amp; Cards</h2>
+<p>Returns a list of numbering sequences.</p>
+<h3 id='returns'>Returns</h3>
+<p>A hash with a data property that contains an array of numbering sequences. Each entry in the array is a separate numbering sequence object. If no numbering sequence are available, the resulting array will be empty. This request should never raise an error.</p>
+<h1 id='customers'>Customers</h1><h2 id='the-customer-object'>The customer object</h2>
 <blockquote>
-<p>Create a new Stripe customer</p>
+<p>Example object</p>
 </blockquote>
-<pre><code class="highlight ruby"><span class="k">if</span> <span class="n">customer</span><span class="p">.</span><span class="nf">nil?</span>
-  <span class="k">if</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">business_type</span> <span class="o">==</span> <span class="s2">"B2B"</span>
-    <span class="n">customer</span> <span class="o">=</span> <span class="no">Stripe</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-      <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
-      <span class="ss">:description</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">business_name</span><span class="p">,</span>
-      <span class="ss">:metadata</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="ss">:business_type</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">business_type</span><span class="p">,</span>
-        <span class="ss">:vat_number</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">vat_number</span>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"customer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Octobat Inc."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contact@octobat.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"billing_address_line1"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"billing_address_line2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"billing_address_city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"billing_address_zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"75004"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"billing_address_state"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"billing_address_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"business_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B2B"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id='attributes'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>object:</strong></td>
+<td><strong>string</strong> equals to customer</td>
+</tr>
+<tr>
+<td><strong>name:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>email:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>phone_number:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_line1:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_line2:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_city:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_zip:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_state:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_country:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>business_type:</strong></td>
+<td><strong>string</strong> Possible values are <code class="prettyprint">B2B</code> and <code class="prettyprint">B2C</code>. An individual must be tagged as <code class="prettyprint">B2C</code> while a business must be tagged as <code class="prettyprint">B2B</code></td>
+</tr>
+<tr>
+<td><strong>vat_number:</strong></td>
+<td><strong>string</strong> If your customer is a business registered at EU-VAT, its VAT registration number.</td>
+</tr>
+</tbody></table>
+<h2 id='create-a-customer'>Create a customer</h2><pre><code class="highlight plaintext"># Definition
+POST https://api.octobat.com/customers
+</code></pre>
+<pre><code class="highlight shell"><span class="c"># Example Request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/customers <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+   -d <span class="nv">email</span><span class="o">=</span><span class="s2">"contact@octobat.com"</span> <span class="se">\</span>
+   -d <span class="nv">name</span><span class="o">=</span><span class="s2">"Octobat Inc."</span> <span class="se">\</span>
+   -d <span class="nv">phone_number</span><span class="o">=</span><span class="s2">"+33 9 52 54 03 70"</span> <span class="se">\</span>
+   -d <span class="nv">billing_address_zip</span><span class="o">=</span><span class="s2">"75004"</span> <span class="se">\</span>
+   -d <span class="nv">billing_address_city</span><span class="o">=</span><span class="s2">"Paris"</span> <span class="se">\</span>
+   -d <span class="nv">billing_address_country</span><span class="o">=</span><span class="s2">"France"</span> <span class="se">\</span>
+   -d <span class="nv">business_type</span><span class="o">=</span><span class="s2">"B2B"</span> <span class="se">\</span>
+   -d <span class="nv">vat_number</span><span class="o">=</span><span class="s2">"FR60528551658"</span>
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+  <span class="s2">"object"</span> : <span class="s2">"customer"</span>,
+  <span class="s2">"name"</span>: <span class="s2">"Octobat Inc."</span>,
+  <span class="s2">"email"</span>: <span class="s2">"contact@octobat.com"</span>,
+  <span class="s2">"phone_number"</span>: <span class="s2">"+33 9 52 54 03 70"</span>,
+  <span class="s2">"billing_address_line1"</span>: null,
+  <span class="s2">"billing_address_line2"</span>: null,
+  <span class="s2">"billing_address_city"</span>: <span class="s2">"Paris"</span>,
+  <span class="s2">"billing_address_zip"</span>: <span class="s2">"75004"</span>,
+  <span class="s2">"billing_address_state"</span>: null,
+  <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
+  <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
+  <span class="s2">"vat_number"</span>: null 
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="s2">"Octobat Inc."</span><span class="p">,</span>
+  <span class="ss">email: </span><span class="s2">"contact@octobat.com"</span><span class="p">,</span>
+  <span class="ss">phone_number: </span><span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+  <span class="ss">billing_address_line1: </span><span class="n">null</span><span class="p">,</span>
+  <span class="ss">billing_address_line2: </span><span class="n">null</span><span class="p">,</span>
+  <span class="ss">billing_address_city: </span><span class="s2">"Paris"</span><span class="p">,</span>
+  <span class="ss">billing_address_zip: </span><span class="s2">"75004"</span><span class="p">,</span>
+  <span class="ss">billing_address_state: </span><span class="n">null</span><span class="p">,</span>
+  <span class="ss">billing_address_country: </span><span class="s2">"France"</span><span class="p">,</span>
+  <span class="ss">business_type: </span><span class="s2">"B2B"</span><span class="p">,</span>
+  <span class="ss">vat_number: </span><span class="n">null</span>
+<span class="p">)</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::Customer id=oc_cu_1421878635hksc26e4de79 0x00000a&gt; JSON: {</span>
+ <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+ <span class="s2">"object"</span> <span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+ <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Octobat Inc."</span><span class="p">,</span>
+ <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"admin@octobat.com"</span><span class="p">,</span>
+ <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+ <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+ <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+ <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+ <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
+ <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+<span class="p">}</span>
+</code></pre>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>name:</strong></td>
+<td><strong>string required</strong></td>
+</tr>
+<tr>
+<td><strong>email:</strong></td>
+<td><strong>string required</strong></td>
+</tr>
+<tr>
+<td><strong>phone_number:</strong></td>
+<td><strong>string optional</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_line1:</strong></td>
+<td><strong>string optional</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_line2:</strong></td>
+<td><strong>string optional</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_city:</strong></td>
+<td><strong>string required</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_zip:</strong></td>
+<td><strong>string required</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_state:</strong></td>
+<td><strong>string optional</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_country:</strong></td>
+<td><strong>string required</strong></td>
+</tr>
+<tr>
+<td><strong>business_type:</strong></td>
+<td><strong>string required</strong> Possible values are <code class="prettyprint">B2B</code> and <code class="prettyprint">B2C</code>. An individual must be tagged as <code class="prettyprint">B2C</code> while a business must be tagged as <code class="prettyprint">B2B</code></td>
+</tr>
+<tr>
+<td><strong>vat_number:</strong></td>
+<td><strong>string optional</strong> If your customer is a business registered at EU-VAT, its VAT registration number.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns the customer object if the creation succeeds. Returns an error if parameters are invalid</p>
+<h2 id='retrieve-an-existing-customer'>Retrieve an existing customer</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+GET https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span class="o">}</span>
+
+<span class="c"># Example Request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/customers/oc_cu_1421878635hksc26e4de79 <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+  <span class="s2">"object"</span> : <span class="s2">"customer"</span>,
+  <span class="s2">"name"</span>: <span class="s2">"Octobat Inc."</span>,
+  <span class="s2">"email"</span>: <span class="s2">"contact@octobat.com"</span>,
+  <span class="s2">"phone_number"</span>: <span class="s2">"+33 9 52 54 03 70"</span>,
+  <span class="s2">"billing_address_line1"</span>: null,
+  <span class="s2">"billing_address_line2"</span>: null,
+  <span class="s2">"billing_address_city"</span>: <span class="s2">"Paris"</span>,
+  <span class="s2">"billing_address_zip"</span>: <span class="s2">"75004"</span>,
+  <span class="s2">"billing_address_state"</span>: null,
+  <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
+  <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
+  <span class="s2">"vat_number"</span>: null
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">({</span><span class="no">CUSTOMER_ID</span><span class="p">})</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">)</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::Customer id=oc_cu_1421878635hksc26e4de79 0x00000a&gt; JSON: {</span>
+ <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+ <span class="s2">"object"</span> <span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+ <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Octobat Inc."</span><span class="p">,</span>
+ <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"contact@octobat.com"</span><span class="p">,</span>
+ <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+ <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+ <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+ <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+ <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
+ <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+<span class="p">}</span>
+</code></pre>
+
+<p>Retrieves the details of an existing customer. You need only supply the unique customer identifier that was returned upon customer creation.</p>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id:</strong></td>
+<td><strong>required</strong> The identifier of the customer to be retrieved.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns a customer object if a valid identifier was provided.</p>
+<h2 id='update-a-customer'>Update a customer</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+PATCH https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span class="o">}</span>
+
+<span class="c"># Example request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/customers/oc_cu_1421878635hksc26e4de79 <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+   -d <span class="nv">email</span><span class="o">=</span><span class="s2">"admin@octobat.com"</span>
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+  <span class="s2">"object"</span> : <span class="s2">"customer"</span>,
+  <span class="s2">"name"</span>: <span class="s2">"Octobat Inc."</span>,
+  <span class="s2">"email"</span>: <span class="s2">"admin@octobat.com"</span>,
+  <span class="s2">"phone_number"</span>: <span class="s2">"+33 9 52 54 03 70"</span>,
+  <span class="s2">"billing_address_line1"</span>: null,
+  <span class="s2">"billing_address_line2"</span>: null,
+  <span class="s2">"billing_address_city"</span>: <span class="s2">"Paris"</span>,
+  <span class="s2">"billing_address_zip"</span>: <span class="s2">"75004"</span>,
+  <span class="s2">"billing_address_state"</span>: null,
+  <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
+  <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
+  <span class="s2">"vat_number"</span>: null 
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="n">customer</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">)</span>
+<span class="n">customer</span><span class="p">.</span><span class="nf">email</span> <span class="o">=</span> <span class="s2">"admin@octobat.com"</span>
+<span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">customer</span><span class="p">.</span><span class="nf">save</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="n">customer</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">)</span>
+<span class="n">customer</span><span class="p">.</span><span class="nf">email</span> <span class="o">=</span> <span class="s2">"admin@octobat.com"</span>
+<span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">customer</span><span class="p">.</span><span class="nf">save</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::Customer id=oc_cu_1421878635hksc26e4de79 0x00000a&gt; JSON: {</span>
+ <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+ <span class="s2">"object"</span> <span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+ <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Octobat Inc."</span><span class="p">,</span>
+ <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"admin@octobat.com"</span><span class="p">,</span>
+ <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+ <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+ <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+ <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+ <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
+ <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+<span class="p">}</span>
+</code></pre>
+
+<p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+This request accepts mostly the same arguments as the customer creation call.</p>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>name:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>email:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>phone_number:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_line1:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_line2:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_city:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_zip:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_state:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>billing_address_country:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>business_type:</strong></td>
+<td><strong>string</strong> Possible values are <code class="prettyprint">B2B</code> and <code class="prettyprint">B2C</code>. An individual must be tagged as <code class="prettyprint">B2C</code> while a business must be tagged as <code class="prettyprint">B2B</code></td>
+</tr>
+<tr>
+<td><strong>vat_number:</strong></td>
+<td><strong>string</strong> If your customer is a business registered at EU-VAT, its VAT registration number.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns the customer object if the update succeeded. Returns an error if update parameters are invalid</p>
+<h2 id='list-all-customers'>List all customers</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+GET https://api.octobat.com/customers/
+
+<span class="c"># Example request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/customers <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"object"</span>: <span class="s2">"list"</span>,
+  <span class="s2">"data"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+      <span class="s2">"object"</span> : <span class="s2">"customer"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Octobat Inc."</span>,
+      <span class="s2">"email"</span>: <span class="s2">"admin@octobat.com"</span>,
+      <span class="s2">"phone_number"</span>: <span class="s2">"+33 9 52 54 03 70"</span>,
+      <span class="s2">"billing_address_line1"</span>: null,
+      <span class="s2">"billing_address_line2"</span>: null,
+      <span class="s2">"billing_address_city"</span>: <span class="s2">"Paris"</span>,
+      <span class="s2">"billing_address_zip"</span>: <span class="s2">"75004"</span>,
+      <span class="s2">"billing_address_state"</span>: null,
+      <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
+      <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
+      <span class="s2">"vat_number"</span>: null 
+    <span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">all</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">all</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::ListObject:0x3fe634d74498&gt; JSON: {</span>
+  <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"list"</span><span class="p">,</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="c1">#&lt;Octobat::Customer id=oc_cu_1421878635hksc26e4de79 0x00000a&gt; JSON: {</span>
+     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+     <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+     <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Octobat Inc."</span><span class="p">,</span>
+     <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"admin@octobat.com"</span><span class="p">,</span>
+     <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+     <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+     <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+     <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+     <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
+     <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+    <span class="p">},</span>
+    <span class="c1">#&lt;Octobat::Customer[...] ...&gt;,</span>
+    <span class="c1">#&lt;Octobat::Customer[...] ...&gt;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Returns a list of your customers.</p>
+<h3 id='returns'>Returns</h3>
+<p>A hash with a data property that contains an array of customers. Each entry in the array is a separate customer object. If no customers are available, the resulting array will be empty. This request should never raise an error.</p>
+<h1 id='invoices'>Invoices</h1><h2 id='the-invoice-object'>The invoice object</h2>
+<blockquote>
+<p>Example object</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"livemode"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Web development"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"numbering_sequence_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invoice_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SP2015-200"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invoice_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-08"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eur"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"pdf_file_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Customer"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin@octobat.com"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"billing_address_line1"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"billing_address_line2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"billing_address_city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"billing_address_zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"75004"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"billing_address_state"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"billing_address_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"business_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B2C"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> 
+  </span><span class="p">}</span><span class="w">
+  </span><span class="s2">"customer_id"</span><span class="err">:</span><span class="w"> </span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Customer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_address_line1"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_address_line2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_address_city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_address_state"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_address_zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"75004"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_address_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Octobat"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_legal_form"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inc"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_siret"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25 rue du Petit Musc"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"75004"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paris"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_vat_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FR60528551658"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"supplier_capital_stock"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1000"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"business_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B2C"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invoice_items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"vat_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="err">...}</span><span class="p">,</span><span class="w">
+      </span><span class="p">{</span><span class="err">...}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"payment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_pa_14234412027lw37c15a717"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"payment"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payment_date"</span><span class="p">:</span><span class="s2">"2015-01-05"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"customer_bank_country"</span><span class="p">:</span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payment_mode"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment_mode"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bank name"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"gateway_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id='create-an-invoice'>Create an invoice</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+POST https://www.octobat.com/api/invoices
+
+<span class="c"># Example request</span>
+
+
+<span class="c"># Example response</span>
+
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="no">POST</span> <span class="n">https</span><span class="p">:</span><span class="sr">//</span><span class="n">www</span><span class="p">.</span><span class="nf">octobat</span><span class="p">.</span><span class="nf">com</span><span class="sr">/api/in</span><span class="n">voices</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+  <span class="ss">livemode: </span><span class="kp">true</span><span class="p">,</span>
+  <span class="ss">description: </span><span class="s2">"Web development"</span><span class="p">,</span>
+  <span class="ss">state: </span><span class="s2">"confirmed"</span><span class="p">,</span>
+  <span class="ss">currency: </span><span class="s2">"eur"</span><span class="p">,</span>
+  <span class="ss">numbering_sequence_id: </span><span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
+  <span class="ss">customer: </span><span class="p">{</span>
+    <span class="ss">name: </span><span class="s2">"My customer"</span><span class="p">,</span>
+    <span class="ss">email: </span><span class="s2">"contact@octobat.com"</span><span class="p">,</span>
+    <span class="ss">phone_number: </span><span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+    <span class="ss">billing_address_line1: </span><span class="n">null</span><span class="p">,</span>
+    <span class="ss">billing_address_line2: </span><span class="n">null</span><span class="p">,</span>
+    <span class="ss">billing_address_city: </span><span class="s2">"Paris"</span><span class="p">,</span>
+    <span class="ss">billing_address_zip: </span><span class="s2">"75004"</span><span class="p">,</span>
+    <span class="ss">billing_address_state: </span><span class="n">null</span><span class="p">,</span>
+    <span class="ss">billing_address_country: </span><span class="s2">"France"</span><span class="p">,</span>
+    <span class="ss">business_type: </span><span class="s2">"B2C"</span><span class="p">,</span>
+    <span class="ss">vat_number: </span><span class="n">null</span>
+  <span class="p">},</span>
+  <span class="ss">invoice_items: </span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="ss">description: </span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+      <span class="ss">payment_cents: </span><span class="mi">1000</span><span class="p">,</span>
+      <span class="ss">eservice: </span><span class="kp">true</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="ss">description: </span><span class="s2">"2 hours extratime"</span><span class="p">,</span>
+      <span class="ss">payment_cents: </span><span class="mi">2000</span><span class="p">,</span>
+      <span class="ss">vat_rate: </span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="ss">description: </span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+      <span class="ss">extratax_cents: </span><span class="mi">4000</span><span class="p">,</span>
+      <span class="ss">eservice: </span><span class="kp">false</span>
+    <span class="p">},</span>
+  <span class="p">],</span>
+  <span class="ss">evidence: </span><span class="p">{</span>
+    <span class="ss">customer_ip_address: </span><span class="s2">"137.194.15.1"</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::Invoice id=oc_in_14234251141rdhb20d40fe 0x00000a&gt; JSON: {</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
+  <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"invoice"</span><span class="p">,</span>
+  <span class="s2">"livemode"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Web development"</span><span class="p">,</span>
+  <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
+  <span class="s2">"numbering_sequence_id"</span><span class="p">:</span> <span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
+  <span class="s2">"invoice_number"</span><span class="p">:</span> <span class="s2">"OC-2015-100"</span><span class="p">,</span>
+  <span class="s2">"invoice_date"</span><span class="p">:</span> <span class="s2">"2015-02-08"</span><span class="p">,</span>
+  <span class="s2">"currency"</span><span class="p">:</span> <span class="s2">"eur"</span><span class="p">,</span>
+  <span class="s2">"pdf_file_url"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+    <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"My customer"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"contact@octobat.com"</span><span class="p">,</span>
+    <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+    <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+    <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+    <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+    <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
+    <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span>
+  <span class="p">}</span>
+  <span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+  <span class="s2">"customer_name"</span><span class="p">:</span> <span class="s2">"My Customer"</span><span class="p">,</span>
+  <span class="s2">"customer_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+  <span class="s2">"customer_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+  <span class="s2">"customer_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+  <span class="s2">"customer_vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"supplier_name"</span><span class="p">:</span> <span class="s2">"Octobat"</span><span class="p">,</span>
+  <span class="s2">"supplier_legal_form"</span><span class="p">:</span> <span class="s2">"Inc"</span><span class="p">,</span>
+  <span class="s2">"supplier_siret"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"supplier_address"</span><span class="p">:</span> <span class="s2">"25 rue du Petit Musc"</span><span class="p">,</span>
+  <span class="s2">"supplier_zip_code"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+  <span class="s2">"supplier_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+  <span class="s2">"supplier_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+  <span class="s2">"supplier_vat_number"</span><span class="p">:</span> <span class="s2">"FR60528551658"</span><span class="p">,</span>
+  <span class="s2">"supplier_capital_stock"</span><span class="p">:</span> <span class="s2">"1000"</span><span class="p">,</span>
+  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
+  <span class="s2">"invoice_items"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"object"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+      <span class="p">},</span>
+      <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"2 hours extratim"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">1818</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+      <span class="p">},</span>
+       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">4000</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span>
       <span class="p">}</span>
-    <span class="p">)</span>
-  <span class="k">else</span> <span class="c1"># for B2C</span>
-    <span class="n">customer</span> <span class="o">=</span> <span class="no">Stripe</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-      <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
-      <span class="ss">:description</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">first_name</span><span class="o">+</span><span class="s2">" "</span><span class="o">+</span><span class="n">current_user</span><span class="p">.</span><span class="nf">last_name</span><span class="p">,</span>
-      <span class="ss">:metadata</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="ss">:business_type</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">business_type</span><span class="p">,</span>
-        <span class="ss">:ip_address</span> <span class="o">=&gt;</span> <span class="s2">"87.176.10.2"</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">"payment"</span><span class="p">:</span> <span class="n">null</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>livemode:</strong></td>
+<td><strong>boolean required</strong></td>
+</tr>
+<tr>
+<td><strong>description:</strong></td>
+<td><strong>string required</strong></td>
+</tr>
+<tr>
+<td><strong>state:</strong></td>
+<td><strong>string required</strong> can be <code class="prettyprint">confirmed</code> or <code class="prettyprint">paid</code>, according to the paid status of the invoice</td>
+</tr>
+<tr>
+<td><strong>currency:</strong></td>
+<td><strong>string required</strong> ISO code of the currency (eur, usd, gbp&hellip;)</td>
+</tr>
+<tr>
+<td><strong>customer_id:</strong></td>
+<td><strong>string optional</strong> Customer identifier. Mandatory if no nested customer object is present</td>
+</tr>
+<tr>
+<td><strong>customer:</strong></td>
+<td><strong>object required</strong> Directly creates a new customer and attachs current invoice to him. See the customer#create function to know more about customer fields</td>
+</tr>
+<tr>
+<td><strong>evidence:</strong></td>
+<td><strong>hash optional</strong> Nested Evidence Hash. Fill it in the following way: <code class="prettyprint">{&quot;customer_ip_address&quot;:&quot;137.194.15.1&quot;}</code> to fill the customer ip address for VATMOSS evidence</td>
+</tr>
+<tr>
+<td><strong>invoice_items:</strong></td>
+<td><strong>array required</strong> List of invoice items, see the corresponding section to have details on how to fill this section.</td>
+</tr>
+<tr>
+<td><strong>payment:</strong></td>
+<td><strong>object optional</strong> A nested payment object. Mandatory if the invoice state equals to <code class="prettyprint">paid</code>. See the corresponding section to have details on how to fill this object.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns the full invoice object if the creation succeeded. Returns an error if parameters are invalid</p>
+<h2 id='declare-as-paid'>Declare as paid</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<span class="o">}</span>/pay
+
+<span class="c"># Example request</span>
+
+
+<span class="c"># Example response</span>
+
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
+<span class="n">payment_data</span> <span class="o">=</span> <span class="p">{.</span><span class="nf">.</span><span class="o">.</span><span class="p">}</span>
+<span class="n">invoice</span><span class="p">.</span><span class="nf">pay</span><span class="p">(</span><span class="n">payment_data</span><span class="p">)</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
+<span class="n">invoice</span><span class="p">.</span><span class="nf">pay</span><span class="p">(</span>
+  <span class="ss">payment_date: </span><span class="s2">"2015-01-05"</span><span class="p">,</span>
+  <span class="ss">customer_bank_country: </span><span class="s2">"United Kingdom"</span><span class="p">,</span>
+  <span class="ss">payment_mode: </span><span class="s2">"oc_pm_14235210139j06befa616a"</span>
+<span class="p">)</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::Invoice id=oc_in_14234251141rdhb20d40fe 0x00000a&gt; JSON: {{</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
+  <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"invoice"</span><span class="p">,</span>
+  <span class="s2">"livemode"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Web development"</span><span class="p">,</span>
+  <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"paid"</span><span class="p">,</span>
+  <span class="s2">"numbering_sequence_id"</span><span class="p">:</span> <span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
+  <span class="s2">"invoice_number"</span><span class="p">:</span> <span class="s2">"OC-2015-100"</span><span class="p">,</span>
+  <span class="s2">"invoice_date"</span><span class="p">:</span> <span class="s2">"2015-02-08"</span><span class="p">,</span>
+  <span class="s2">"currency"</span><span class="p">:</span> <span class="s2">"eur"</span><span class="p">,</span>
+  <span class="s2">"pdf_file_url"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+    <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"My customer"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"contact@octobat.com"</span><span class="p">,</span>
+    <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+    <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+    <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+    <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+    <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
+    <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span>
+  <span class="p">}</span>
+  <span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+  <span class="s2">"customer_name"</span><span class="p">:</span> <span class="s2">"My Customer"</span><span class="p">,</span>
+  <span class="s2">"customer_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+  <span class="s2">"customer_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+  <span class="s2">"customer_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+  <span class="s2">"customer_vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"supplier_name"</span><span class="p">:</span> <span class="s2">"Octobat"</span><span class="p">,</span>
+  <span class="s2">"supplier_legal_form"</span><span class="p">:</span> <span class="s2">"Inc"</span><span class="p">,</span>
+  <span class="s2">"supplier_siret"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"supplier_address"</span><span class="p">:</span> <span class="s2">"25 rue du Petit Musc"</span><span class="p">,</span>
+  <span class="s2">"supplier_zip_code"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+  <span class="s2">"supplier_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+  <span class="s2">"supplier_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+  <span class="s2">"supplier_vat_number"</span><span class="p">:</span> <span class="s2">"FR60528551658"</span><span class="p">,</span>
+  <span class="s2">"supplier_capital_stock"</span><span class="p">:</span> <span class="s2">"1000"</span><span class="p">,</span>
+  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
+  <span class="s2">"invoice_items"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"object"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+      <span class="p">},</span>
+      <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"2 hours extratim"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">1818</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+      <span class="p">},</span>
+       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">4000</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span>
       <span class="p">}</span>
-    <span class="p">)</span>
-  <span class="k">end</span>
-  <span class="n">card</span> <span class="o">=</span> <span class="n">customer</span><span class="p">.</span><span class="nf">cards</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">card: </span><span class="n">params</span><span class="p">[</span><span class="ss">:stripeToken</span><span class="p">])</span>
-  <span class="n">current_user</span><span class="p">.</span><span class="nf">update_attribute</span><span class="p">(</span><span class="ss">:customer_stripe_id</span><span class="p">,</span> <span class="n">customer</span><span class="p">.</span><span class="nf">id</span><span class="p">)</span>
-<span class="k">end</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">"payment"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pa_14234412027lw37c15a717"</span><span class="p">,</span>
+    <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment"</span><span class="p">,</span>
+    <span class="s2">"invoice"</span><span class="p">:</span> <span class="s2">"oc_in_14219457353oiq78b051b1"</span><span class="p">,</span>
+    <span class="s2">"payment_date"</span><span class="p">:</span> <span class="s2">"2015-01-05"</span><span class="p">,</span>
+    <span class="s2">"customer_bank_country"</span><span class="p">:</span> <span class="s2">"United Kingdom"</span><span class="p">,</span>
+    <span class="s2">"payment_mode"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
+      <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment_mode"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bank name"</span><span class="p">,</span>
+      <span class="s2">"gateway_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
+      <span class="s2">"details"</span><span class="p">:</span> <span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
-
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>payment:</strong></td>
+<td><strong>object optional</strong> A nested payment object. Mandatory if the invoice state equals to <code class="prettyprint">paid</code>. See the corresponding section to have details on how to fill this object.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns the full invoice object if the update succeeded. Returns an error if update parameters are invalid</p>
+<h1 id='invoice-items'>Invoice items</h1>
+<p>Invoice items are the line items in an invoice, You cannot interact directly with invoice items, you must attach them to an invoice, when creating it.</p>
+<h2 id='the-invoice-item-object'>The invoice item object</h2>
 <blockquote>
-<p>Or retrieve the existing customer from Stripe</p>
+<p>Example object</p>
 </blockquote>
-<pre><code class="highlight ruby"><span class="k">unless</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">customer_stripe_id</span><span class="p">.</span><span class="nf">nil?</span>
-  <span class="n">customer</span> <span class="o">=</span> <span class="no">Stripe</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="n">current_user</span><span class="p">.</span><span class="nf">customer_stripe_id</span><span class="p">)</span>
-  <span class="n">card</span> <span class="o">=</span> <span class="n">customer</span><span class="p">.</span><span class="nf">cards</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">card: </span><span class="n">params</span><span class="p">[</span><span class="ss">:stripeToken</span><span class="p">])</span>
-<span class="k">end</span>
-</code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"vat_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id='attributes'>Attributes</h3>
+<p>The following requirements are concerning the addition of an invoice item in an invoice, when creating it.</p>
 
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>object:</strong></td>
+<td><strong>string</strong> equals to invoice_item</td>
+</tr>
+<tr>
+<td><strong>description:</strong></td>
+<td><strong>string required</strong> Description of the invoice line</td>
+</tr>
+<tr>
+<td><strong>extratax_cents:</strong></td>
+<td><strong>string optional</strong> The extratax amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">payment_cents</code> field is blank.</td>
+</tr>
+<tr>
+<td><strong>payment_cents:</strong></td>
+<td><strong>string optional</strong> The all tax included amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">extratax_cents</code> field is blank.</td>
+</tr>
+<tr>
+<td><strong>vat_rate:</strong></td>
+<td><strong>float optional</strong> The VAT rate of the transaction. Each time you create an invoice item, we try to compute the rate automatically in function of customer (B2B, B2C), transaction type (goods, services, eservices), and location (EU country, non-EU, &hellip;). Fill this field, only if you want to override our automatic calculation, if you have a specific rate for instance.</td>
+</tr>
+<tr>
+<td><strong>eservice:</strong></td>
+<td><strong>boolean optional</strong> Indicates if it&rsquo;s an online-sold service, without any manual intervention, as indicated in the 2015-EU VAT laws. Defaults to your account default value if not filled.</td>
+</tr>
+</tbody></table>
+<h1 id='payment-modes'>Payment modes</h1><h2 id='the-payment-mode-object'>The payment mode object</h2>
 <blockquote>
-<p>Then fill the card data</p>
+<p>Example object</p>
 </blockquote>
-<pre><code class="highlight ruby"><span class="k">if</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">business_type</span> <span class="o">==</span> <span class="s2">"B2B"</span>
-  <span class="n">card</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">business_name</span> <span class="k">if</span> <span class="o">!</span><span class="n">current_user</span><span class="p">.</span><span class="nf">business_name</span><span class="p">.</span><span class="nf">blank?</span>
-<span class="k">else</span> <span class="c1"># for B2C</span>
-  <span class="n">card</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">first_name</span><span class="o">+</span><span class="s2">" "</span><span class="o">+</span><span class="n">current_user</span><span class="p">.</span><span class="nf">last_name</span> <span class="k">if</span> <span class="o">!</span><span class="n">current_user</span><span class="p">.</span><span class="nf">first_name</span><span class="p">.</span><span class="nf">blank?</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">current_user</span><span class="p">.</span><span class="nf">last_name</span><span class="p">.</span><span class="nf">blank?</span>
-<span class="k">end</span>
-
-<span class="n">card</span><span class="p">.</span><span class="nf">address_line1</span> <span class="o">=</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">address</span> <span class="k">if</span> <span class="o">!</span><span class="n">current_user</span><span class="p">.</span><span class="nf">address</span><span class="p">.</span><span class="nf">blank?</span>
-<span class="n">card</span><span class="p">.</span><span class="nf">address_city</span> <span class="o">=</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">city</span> <span class="k">if</span> <span class="o">!</span><span class="n">current_user</span><span class="p">.</span><span class="nf">city</span><span class="p">.</span><span class="nf">blank?</span>
-<span class="n">card</span><span class="p">.</span><span class="nf">address_zip</span> <span class="o">=</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">zip_code</span> <span class="k">if</span> <span class="o">!</span><span class="n">current_user</span><span class="p">.</span><span class="nf">zip_code</span><span class="p">.</span><span class="nf">blank?</span>
-<span class="n">card</span><span class="p">.</span><span class="nf">address_country</span> <span class="o">=</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">country</span> <span class="k">if</span> <span class="o">!</span><span class="n">current_user</span><span class="p">.</span><span class="nf">country</span><span class="p">.</span><span class="nf">blank?</span>
-<span class="n">card</span><span class="p">.</span><span class="nf">save</span>
-</code></pre>
-
-<p><aside class="notice">
-<code class="prettyprint">params[:stripeToken]</code> obtained with Stripe.js.
-</aside></p>
-
-<p><aside class="success">
-Create any charge or subscription within the <code class="prettyprint">customer</code> object
-</aside></p>
-<h3 id='arguments'>Arguments</h3>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment_mode"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bank name"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"gateway_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id='attributes'>Attributes</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th>Attribute</th>
+<th>Type</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>business_type <strong>optional</strong></td>
-<td>Your setting value in Octobat</td>
-<td>B2C/B2B : possible value. This is a required Octobat field to compute the VAT rate for the transaction.</td>
+<td><strong>id:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>object:</strong></td>
+<td><strong>string</strong> equals to payment_mode</td>
+</tr>
+<tr>
+<td><strong>name:</strong></td>
+<td><strong>string required</strong> Name or description of the payment mode</td>
+</tr>
+<tr>
+<td><strong>gateway_type:</strong></td>
+<td><strong>string</strong> Can be transfer, cheque, stripe or other</td>
+</tr>
+<tr>
+<td><strong>details:</strong></td>
+<td><strong>string</strong> Details addressed to the customer, to recieve the payment (IBAN, cheque destination&hellip;)</td>
 </tr>
 </tbody></table>
-<h2 id='charges'>Charges</h2><pre><code class="highlight ruby"><span class="n">charge</span> <span class="o">=</span> <span class="no">Stripe</span><span class="o">::</span><span class="no">Charge</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-  <span class="ss">:amount</span>      <span class="o">=&gt;</span> <span class="mi">400</span><span class="p">,</span>
-  <span class="ss">:currency</span>    <span class="o">=&gt;</span> <span class="s2">"eur"</span><span class="p">,</span>
-  <span class="ss">:card</span>        <span class="o">=&gt;</span> <span class="n">card</span><span class="p">,</span>
-  <span class="ss">:customer</span>    <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">customer_stripe_id</span><span class="p">,</span> <span class="c1"># or customer.id</span>
-  <span class="ss">:description</span> <span class="o">=&gt;</span> <span class="s1">'The charge will appear on the invoice'</span><span class="p">,</span>
-  <span class="ss">:metadata</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="ss">:vat_rate</span> <span class="o">=&gt;</span> <span class="mi">21</span><span class="p">,</span>
-    <span class="ss">:eservice</span> <span class="o">=&gt;</span> <span class="kp">false</span>
-  <span class="p">}</span>
-<span class="p">)</span>
+<h2 id='listing-payment-modes'>Listing payment modes</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+GET https://api.octobat.com/payment_modes/
+
+<span class="c"># Example request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/payment_modes <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"object"</span>: <span class="s2">"list"</span>,
+  <span class="s2">"data"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"oc_pm_14235210139j06befa616a"</span>,
+      <span class="s2">"object"</span>: <span class="s2">"payment_mode"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Bank name"</span>,
+      <span class="s2">"gateway_type"</span>: <span class="s2">"transfer"</span>,
+      <span class="s2">"details"</span>: <span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="no">Octobat</span><span class="o">::</span><span class="no">PaymentMode</span><span class="p">.</span><span class="nf">all</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="no">Octobat</span><span class="o">::</span><span class="no">PaymentMode</span><span class="p">.</span><span class="nf">all</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::ListObject:0x3fe634d74498&gt; JSON: {</span>
+  <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"list"</span><span class="p">,</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="c1">#&lt;Octobat::PaymentMode id=oc_pm_14235210139j06befa616a 0x00000a&gt; JSON: {</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
+      <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment_mode"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bank name"</span><span class="p">,</span>
+      <span class="s2">"gateway_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
+      <span class="s2">"details"</span><span class="p">:</span> <span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span>
+    <span class="p">},</span>
+    <span class="c1">#&lt;Octobat::PaymentMode[...] ...&gt;,</span>
+    <span class="c1">#&lt;Octobat::PaymentMode[...] ...&gt;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
 </code></pre>
 
-<p><aside class="notice">
-If you already know the VAT rate and don&rsquo;t need us to compute it for you, fill the metadata :vat_rate field. Thus, you don&rsquo;t have to fill the customer <code class="prettyprint">:business_type</code> and the charge <code class="prettyprint">:eservice</code> metadata.
-</aside></p>
-<h3 id='arguments'>Arguments</h3>
+<p>Returns a list of payment modes.</p>
+<h3 id='returns'>Returns</h3>
+<p>A hash with a data property that contains an array of payment modes. Each entry in the array is a separate numbering payment mode. If no payment modes are available, the resulting array will be empty. This request should never raise an error.</p>
+<h1 id='payments'>Payments</h1>
+<p>When an invoice is declared as paid, it must include a payment object within it. You cannot interact directly with payment objects, you must attach them to a paid invoice, when creating it or declaring an invoice as paid.</p>
+<h2 id='the-payment-object'>The payment object</h2>
+<blockquote>
+<p>Example object</p>
+</blockquote>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_pa_14234412027lw37c15a717"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_in_14219457353oiq78b051b1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-01-28"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer_bank_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_mode"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id='attributes'>Attributes</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
+<th>Attribute</th>
+<th>Type</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>vat_rate <strong>optional</strong></td>
-<td>Your setting value in Octobat</td>
-<td>The VAT rate of this charge.</td>
+<td><strong>id:</strong></td>
+<td><strong>string</strong></td>
 </tr>
 <tr>
-<td>eservice <strong>optional</strong></td>
-<td>Your setting value in Octobat</td>
-<td>Will be processed if :business_type equals to &ldquo;B2C&rdquo;. This is a required Octobat field to compute the VAT rate for the transaction.</td>
-</tr>
-</tbody></table>
-<h2 id='subscriptions'>Subscriptions</h2><pre><code class="highlight ruby"><span class="n">plan</span> <span class="o">=</span> <span class="no">Stripe</span><span class="o">::</span><span class="no">Plan</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"octobat"</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">plan</span><span class="p">.</span><span class="nf">nil?</span>
-  <span class="n">plan</span> <span class="o">=</span> <span class="no">Stripe</span><span class="o">::</span><span class="no">Plan</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-    <span class="ss">:amount</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="ss">:interval</span> <span class="o">=&gt;</span> <span class="s1">'month'</span><span class="p">,</span>
-    <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="s1">'Amazing Octobat Plan'</span><span class="p">,</span>
-    <span class="ss">:currency</span> <span class="o">=&gt;</span> <span class="s1">'eur'</span><span class="p">,</span>
-    <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="s1">'octobat'</span>
-  <span class="p">)</span>
-<span class="k">end</span>
-
-<span class="n">customer</span><span class="p">.</span><span class="nf">subscriptions</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-  <span class="ss">:plan</span> <span class="o">=&gt;</span> <span class="s2">"octobat"</span><span class="p">,</span>
-  <span class="ss">:metadata</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="ss">:vat_rate</span> <span class="o">=&gt;</span> <span class="mi">21</span><span class="p">,</span>
-    <span class="ss">:eservice</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-  <span class="p">}</span>
-<span class="p">)</span>
-</code></pre>
-
-<p>Dealing with subscriptions is like dealing with simple charges, you must fill the metadata field to provide Octobat its required data to generate perfectly your invoices.</p>
-<h3 id='arguments'>Arguments</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>vat_rate <strong>optional</strong></td>
-<td>Your setting value in Octobat</td>
-<td>The VAT rate of this charge.</td>
+<td><strong>object:</strong></td>
+<td><strong>string</strong> equals to payment</td>
 </tr>
 <tr>
-<td>eservice <strong>optional</strong></td>
-<td>Your setting value in Octobat</td>
-<td>Will be processed if :business_type equals to &ldquo;B2C&rdquo;. This is a required Octobat field to compute the VAT rate for the transaction.</td>
-</tr>
-</tbody></table>
-<h2 id='invoice-items'>Invoice items</h2><pre><code class="highlight ruby"><span class="no">Stripe</span><span class="o">::</span><span class="no">InvoiceItem</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
-  <span class="ss">:customer</span> <span class="o">=&gt;</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">customer_stripe_id</span><span class="p">,</span> <span class="c1"># or customer.id</span>
-  <span class="ss">:amount</span> <span class="o">=&gt;</span> <span class="mi">1000</span><span class="p">,</span>
-  <span class="ss">:currency</span> <span class="o">=&gt;</span> <span class="s2">"eur"</span><span class="p">,</span>
-  <span class="ss">:description</span> <span class="o">=&gt;</span> <span class="s2">"The charge will appear on the invoice"</span><span class="p">,</span>
-  <span class="ss">:metadata</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="ss">:vat_rate</span> <span class="o">=&gt;</span> <span class="mi">21</span><span class="p">,</span>
-    <span class="ss">:eservice</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="c1"># or false</span>
-  <span class="p">}</span>
-<span class="p">)</span>
-</code></pre>
-<h3 id='arguments'>Arguments</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>vat_rate <strong>optional</strong></td>
-<td>Your setting value in Octobat</td>
-<td>The VAT rate of this charge.</td>
+<td><strong>invoice:</strong></td>
+<td><strong>string required</strong> Identifier of the related invoice</td>
 </tr>
 <tr>
-<td>eservice <strong>optional</strong></td>
-<td>Your setting value in Octobat</td>
-<td>Will be processed if :business_type equals to &ldquo;B2C&rdquo;. This is a required Octobat field to compute the VAT rate for the transaction.</td>
+<td><strong>payment_date:</strong></td>
+<td><strong>date required</strong></td>
+</tr>
+<tr>
+<td><strong>customer_bank_country:</strong></td>
+<td><strong>string required</strong> Country name or code for the customer cheque, card or bank account</td>
+</tr>
+<tr>
+<td><strong>payment_mode:</strong></td>
+<td><strong>object required</strong> Payment mode object. See previous section for attributes and details</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
+                <a href="#" data-language-name="shell">curl</a>
                 <a href="#" data-language-name="ruby">ruby</a>
           </div>
       </div>
