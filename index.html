@@ -661,7 +661,6 @@ GET https://api.octobat.com/customers/
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"livemode"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Web development"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paid"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"numbering_sequence_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"invoice_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SP2015-200"</span><span class="p">,</span><span class="w">
@@ -728,8 +727,10 @@ GET https://api.octobat.com/customers/
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment_mode"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bank name"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"gateway_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span><span class="w">
+      </span><span class="s2">"payment_mode_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"iban"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FR90 17216 18009 17038133245 88"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -752,7 +753,6 @@ POST https://www.octobat.com/api/invoices
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
   <span class="ss">livemode: </span><span class="kp">true</span><span class="p">,</span>
-  <span class="ss">description: </span><span class="s2">"Web development"</span><span class="p">,</span>
   <span class="ss">state: </span><span class="s2">"confirmed"</span><span class="p">,</span>
   <span class="ss">currency: </span><span class="s2">"eur"</span><span class="p">,</span>
   <span class="ss">numbering_sequence_id: </span><span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
@@ -796,7 +796,6 @@ POST https://www.octobat.com/api/invoices
   <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
   <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"invoice"</span><span class="p">,</span>
   <span class="s2">"livemode"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
-  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Web development"</span><span class="p">,</span>
   <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
   <span class="s2">"numbering_sequence_id"</span><span class="p">:</span> <span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
   <span class="s2">"invoice_number"</span><span class="p">:</span> <span class="s2">"OC-2015-100"</span><span class="p">,</span>
@@ -887,10 +886,6 @@ POST https://www.octobat.com/api/invoices
 <td><strong>boolean required</strong></td>
 </tr>
 <tr>
-<td><strong>description:</strong></td>
-<td><strong>string required</strong></td>
-</tr>
-<tr>
 <td><strong>state:</strong></td>
 <td><strong>string required</strong> can be <code class="prettyprint">confirmed</code> or <code class="prettyprint">paid</code>, according to the paid status of the invoice</td>
 </tr>
@@ -951,7 +946,6 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
   <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
   <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"invoice"</span><span class="p">,</span>
   <span class="s2">"livemode"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
-  <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Web development"</span><span class="p">,</span>
   <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"paid"</span><span class="p">,</span>
   <span class="s2">"numbering_sequence_id"</span><span class="p">:</span> <span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
   <span class="s2">"invoice_number"</span><span class="p">:</span> <span class="s2">"OC-2015-100"</span><span class="p">,</span>
@@ -1037,8 +1031,10 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
       <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
       <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment_mode"</span><span class="p">,</span>
       <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bank name"</span><span class="p">,</span>
-      <span class="s2">"gateway_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
-      <span class="s2">"details"</span><span class="p">:</span> <span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span>
+      <span class="s2">"payment_mode_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
+      <span class="s2">"details"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"iban"</span><span class="p">:</span> <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -1120,8 +1116,10 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment_mode"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bank name"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"gateway_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span><span class="w">
+  </span><span class="s2">"payment_mode_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"iban"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FR90 17216 18009 17038133245 88"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id='attributes'>Attributes</h3>
@@ -1144,12 +1142,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 <td><strong>string required</strong> Name or description of the payment mode</td>
 </tr>
 <tr>
-<td><strong>gateway_type:</strong></td>
-<td><strong>string</strong> Can be transfer, cheque, stripe or other</td>
+<td><strong>payment_mode_type:</strong></td>
+<td><strong>string</strong> Can be <code class="prettyprint">transfer</code>, <code class="prettyprint">check</code>, <code class="prettyprint">stripe</code></td>
 </tr>
 <tr>
 <td><strong>details:</strong></td>
-<td><strong>string</strong> Details addressed to the customer, to recieve the payment (IBAN, cheque destination&hellip;)</td>
+<td><strong>json</strong> Details addressed to the customer, to recieve the payment (IBAN, check recipient&hellip;)</td>
 </tr>
 </tbody></table>
 <h2 id='listing-payment-modes'>Listing payment modes</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
@@ -1167,8 +1165,10 @@ GET https://api.octobat.com/payment_modes/
       <span class="s2">"id"</span>: <span class="s2">"oc_pm_14235210139j06befa616a"</span>,
       <span class="s2">"object"</span>: <span class="s2">"payment_mode"</span>,
       <span class="s2">"name"</span>: <span class="s2">"Bank name"</span>,
-      <span class="s2">"gateway_type"</span>: <span class="s2">"transfer"</span>,
-      <span class="s2">"details"</span>: <span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span>
+      <span class="s2">"payment_mode_type"</span>: <span class="s2">"transfer"</span>,
+      <span class="s2">"details"</span>: <span class="o">{</span>
+        <span class="s2">"iban"</span>: <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="o">}</span>
     <span class="o">}</span>,
     <span class="o">{</span>...<span class="o">}</span>,
     <span class="o">{</span>...<span class="o">}</span>
@@ -1192,8 +1192,10 @@ GET https://api.octobat.com/payment_modes/
       <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
       <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment_mode"</span><span class="p">,</span>
       <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bank name"</span><span class="p">,</span>
-      <span class="s2">"gateway_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
-      <span class="s2">"details"</span><span class="p">:</span> <span class="s2">"Transfer to IBAN: FR61 39849 20000 18293000192 88"</span>
+      <span class="s2">"payment_mode_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
+      <span class="s2">"details"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"iban"</span><span class="p">:</span> <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="p">}</span>
     <span class="p">},</span>
     <span class="c1">#&lt;Octobat::PaymentMode[...] ...&gt;,</span>
     <span class="c1">#&lt;Octobat::PaymentMode[...] ...&gt;</span>
