@@ -718,6 +718,17 @@ GET https://api.octobat.com/customers/
       </span><span class="p">{</span><span class="err">...}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"payable_by"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment_mode"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bank name"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"payment_mode_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"iban"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FR90 17216 18009 17038133245 88"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="s2">"payment"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_pa_14234412027lw37c15a717"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"payment"</span><span class="p">,</span><span class="w">
@@ -760,14 +771,14 @@ POST https://www.octobat.com/api/invoices
     <span class="ss">name: </span><span class="s2">"My customer"</span><span class="p">,</span>
     <span class="ss">email: </span><span class="s2">"contact@octobat.com"</span><span class="p">,</span>
     <span class="ss">phone_number: </span><span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
-    <span class="ss">billing_address_line1: </span><span class="n">null</span><span class="p">,</span>
-    <span class="ss">billing_address_line2: </span><span class="n">null</span><span class="p">,</span>
+    <span class="ss">billing_address_line1: </span><span class="kp">nil</span><span class="p">,</span>
+    <span class="ss">billing_address_line2: </span><span class="kp">nil</span><span class="p">,</span>
     <span class="ss">billing_address_city: </span><span class="s2">"Paris"</span><span class="p">,</span>
     <span class="ss">billing_address_zip: </span><span class="s2">"75004"</span><span class="p">,</span>
-    <span class="ss">billing_address_state: </span><span class="n">null</span><span class="p">,</span>
+    <span class="ss">billing_address_state: </span><span class="kp">nil</span><span class="p">,</span>
     <span class="ss">billing_address_country: </span><span class="s2">"France"</span><span class="p">,</span>
     <span class="ss">business_type: </span><span class="s2">"B2C"</span><span class="p">,</span>
-    <span class="ss">vat_number: </span><span class="n">null</span>
+    <span class="ss">vat_number: </span><span class="kp">nil</span>
   <span class="p">},</span>
   <span class="ss">invoice_items: </span><span class="p">[</span>
     <span class="p">{</span>
@@ -788,7 +799,8 @@ POST https://www.octobat.com/api/invoices
   <span class="p">],</span>
   <span class="ss">evidence: </span><span class="p">{</span>
     <span class="ss">customer_ip_address: </span><span class="s2">"137.194.15.1"</span>
-  <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="ss">payable_by: </span><span class="p">[</span><span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="c1"># Example response</span>
@@ -871,6 +883,17 @@ POST https://www.octobat.com/api/invoices
       <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">},</span>
+  <span class="s2">"payable_by"</span> <span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
+      <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment_mode"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bank name"</span><span class="p">,</span>
+      <span class="s2">"payment_mode_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
+      <span class="s2">"details"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"iban"</span><span class="p">:</span> <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
   <span class="s2">"payment"</span><span class="p">:</span> <span class="n">null</span>
 <span class="p">}</span>
 </code></pre>
@@ -908,6 +931,10 @@ POST https://www.octobat.com/api/invoices
 <tr>
 <td><strong>invoice_items:</strong></td>
 <td><strong>array required</strong> List of invoice items, see the corresponding section to have details on how to fill this section.</td>
+</tr>
+<tr>
+<td><strong>payable_by:</strong></td>
+<td><strong>array optional</strong> List of payment modes ids. Mandatory if the invoice state is not equal to <code class="prettyprint">paid</code>.</td>
 </tr>
 <tr>
 <td><strong>payment:</strong></td>
@@ -1021,6 +1048,17 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
       <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">},</span>
+  <span class="s2">"payable_by"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
+      <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment_mode"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bank name"</span><span class="p">,</span>
+      <span class="s2">"payment_mode_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
+      <span class="s2">"details"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"iban"</span><span class="p">:</span> <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
   <span class="s2">"payment"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pa_14234412027lw37c15a717"</span><span class="p">,</span>
     <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment"</span><span class="p">,</span>
