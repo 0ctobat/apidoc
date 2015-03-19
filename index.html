@@ -112,6 +112,18 @@ You can manage your API keys from your account. Your API keys carry many privile
 </code></pre>
 
 <p>Octobat uses conventional HTTP response codes to indicate success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from the provided information (e.g. a required parameter was missing, a charge failed, etc.), and codes in the 5xx range indicate an error with Octobat&rsquo;s servers.</p>
+<h1 id='nested-objects'>Nested objects</h1><pre><code class="highlight shell"><span class="c"># Example request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/customers?include[]<span class="o">=</span>invoices <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Example request</span>
+<span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="ss">include: </span><span class="p">[</span><span class="s1">'invoices'</span><span class="p">])</span>
+</code></pre>
+
+<p>Many objects can be nested into their parent object in their response properties. Those objects can be expanded inline with the include request parameter. Objects that can be expanded are noted in this documentation.
+This parameter is available on all API requests, and applies to the response of that request only. For example, requesting invoices on a customer will add the customer&rsquo;s invoices list as a property into a full customer object, and will then expand the invoices properties on that customer into a full list object.</p>
 <h1 id='numbering-sequences'>Numbering sequences</h1><h2 id='the-numbering-sequence-object'>The numbering sequence object</h2>
 <blockquote>
 <p>Example object</p>
@@ -1131,11 +1143,11 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 </tr>
 <tr>
 <td><strong>extratax_cents:</strong></td>
-<td><strong>string optional</strong> The extratax amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">payment_cents</code> field is blank.</td>
+<td><strong>integer optional</strong> The extratax amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">payment_cents</code> field is blank.</td>
 </tr>
 <tr>
 <td><strong>payment_cents:</strong></td>
-<td><strong>string optional</strong> The all tax included amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">extratax_cents</code> field is blank.</td>
+<td><strong>integer optional</strong> The all tax included amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">extratax_cents</code> field is blank.</td>
 </tr>
 <tr>
 <td><strong>vat_rate:</strong></td>
