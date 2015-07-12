@@ -233,7 +233,9 @@ GET https://api.octobat.com/numbering_sequences/
   </span><span class="s2">"billing_address_state"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"billing_address_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"business_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B2B"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> 
+  </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id='attributes'>Attributes</h3>
@@ -295,6 +297,14 @@ GET https://api.octobat.com/numbering_sequences/
 <td><strong>vat_number:</strong></td>
 <td><strong>string</strong> If your customer is a business registered at EU-VAT, its VAT registration number.</td>
 </tr>
+<tr>
+<td><strong>created_at:</strong></td>
+<td><strong>datetime</strong> ISO8601 format</td>
+</tr>
+<tr>
+<td><strong>updated_at:</strong></td>
+<td><strong>datetime</strong> ISO8601 format</td>
+</tr>
 </tbody></table>
 <h2 id='create-a-customer'>Create a customer</h2><pre><code class="highlight plaintext"># Definition
 POST https://api.octobat.com/customers
@@ -325,7 +335,9 @@ POST https://api.octobat.com/customers
   <span class="s2">"billing_address_state"</span>: null,
   <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
   <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
-  <span class="s2">"vat_number"</span>: null 
+  <span class="s2">"vat_number"</span>: null,
+  <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+  <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="o">}</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Example request</span>
@@ -360,7 +372,9 @@ POST https://api.octobat.com/customers
  <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
  <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
- <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+ <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> <span class="p">,</span>
+ <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+ <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
 </code></pre>
 <h3 id='arguments'>Arguments</h3>
@@ -438,7 +452,9 @@ GET https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span c
   <span class="s2">"billing_address_state"</span>: null,
   <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
   <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
-  <span class="s2">"vat_number"</span>: null
+  <span class="s2">"vat_number"</span>: null,
+  <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+  <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="o">}</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Definition</span>
@@ -464,7 +480,9 @@ GET https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span c
  <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
  <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
- <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+ <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+ <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
 </code></pre>
 
@@ -505,7 +523,9 @@ PATCH https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span
   <span class="s2">"billing_address_state"</span>: null,
   <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
   <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
-  <span class="s2">"vat_number"</span>: null 
+  <span class="s2">"vat_number"</span>: null,
+  <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+  <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="o">}</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Definition</span>
@@ -537,7 +557,9 @@ PATCH https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span
  <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
  <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
- <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+ <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+ <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
 </code></pre>
 
@@ -621,7 +643,9 @@ GET https://api.octobat.com/customers/
       <span class="s2">"billing_address_state"</span>: null,
       <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
       <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
-      <span class="s2">"vat_number"</span>: null 
+      <span class="s2">"vat_number"</span>: null,
+      <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+      <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
     <span class="o">}</span>,
     <span class="o">{</span>...<span class="o">}</span>,
     <span class="o">{</span>...<span class="o">}</span>
@@ -654,7 +678,9 @@ GET https://api.octobat.com/customers/
      <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
      <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
      <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
-     <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> 
+     <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+     <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
     <span class="p">},</span>
     <span class="c1">#&lt;Octobat::Customer[...] ...&gt;,</span>
     <span class="c1">#&lt;Octobat::Customer[...] ...&gt;</span>
@@ -724,7 +750,9 @@ GET https://api.octobat.com/customers/
         </span><span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
         </span><span class="s2">"vat_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
         </span><span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+        </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="err">...}</span><span class="p">,</span><span class="w">
       </span><span class="p">{</span><span class="err">...}</span><span class="w">
@@ -754,8 +782,12 @@ GET https://api.octobat.com/customers/
       </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"iban"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FR90 17216 18009 17038133245 88"</span><span class="w">
       </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h2 id='create-an-invoice'>Create an invoice</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
@@ -839,7 +871,9 @@ POST https://www.octobat.com/api/invoices
     <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
     <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
     <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
-    <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span>
+    <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+    <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
   <span class="p">}</span>
   <span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
   <span class="s2">"customer_name"</span><span class="p">:</span> <span class="s2">"My Customer"</span><span class="p">,</span>
@@ -871,7 +905,9 @@ POST https://www.octobat.com/api/invoices
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
         <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
         <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
-        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
       <span class="p">},</span>
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
@@ -881,7 +917,9 @@ POST https://www.octobat.com/api/invoices
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
         <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
         <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
-        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
       <span class="p">},</span>
        <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
@@ -891,7 +929,9 @@ POST https://www.octobat.com/api/invoices
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
         <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
         <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
-        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
       <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">},</span>
@@ -906,7 +946,9 @@ POST https://www.octobat.com/api/invoices
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">],</span>
-  <span class="s2">"payment"</span><span class="p">:</span> <span class="n">null</span>
+  <span class="s2">"payment"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+  <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
 </code></pre>
 <h3 id='arguments'>Arguments</h3>
@@ -1004,7 +1046,9 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
     <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
     <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
     <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
-    <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span>
+    <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+    <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
   <span class="p">}</span>
   <span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
   <span class="s2">"customer_name"</span><span class="p">:</span> <span class="s2">"My Customer"</span><span class="p">,</span>
@@ -1036,7 +1080,9 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
         <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
         <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
-        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
       <span class="p">},</span>
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
@@ -1046,7 +1092,9 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
         <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
         <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
-        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
       <span class="p">},</span>
        <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
@@ -1056,7 +1104,9 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
         <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
         <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
-        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
       <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">},</span>
@@ -1085,8 +1135,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
       <span class="s2">"details"</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">"iban"</span><span class="p">:</span> <span class="s2">"FR90 17216 18009 17038133245 88"</span>
       <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+    <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+  <span class="p">},</span>
+  <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+  <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
 </code></pre>
 <h3 id='arguments'>Arguments</h3>
@@ -1117,7 +1171,9 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
   </span><span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="s2">"vat_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
   </span><span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+  </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id='attributes'>Attributes</h3>
@@ -1157,6 +1213,14 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 <td><strong>eservice:</strong></td>
 <td><strong>boolean optional</strong> Indicates if it&rsquo;s an online-sold service, without any manual intervention, as indicated in the 2015-EU VAT laws. Defaults to your account default value if not filled.</td>
 </tr>
+<tr>
+<td><strong>created_at</strong></td>
+<td><strong>datetime</strong></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><strong>datetime</strong></td>
+</tr>
 </tbody></table>
 <h1 id='payment-modes'>Payment modes</h1><h2 id='the-payment-mode-object'>The payment mode object</h2>
 <blockquote>
@@ -1169,7 +1233,9 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
   </span><span class="s2">"payment_mode_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transfer"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"iban"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FR90 17216 18009 17038133245 88"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id='attributes'>Attributes</h3>
@@ -1198,6 +1264,14 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 <tr>
 <td><strong>details:</strong></td>
 <td><strong>json</strong> Details addressed to the customer, to recieve the payment (IBAN, check recipient&hellip;)</td>
+</tr>
+<tr>
+<td><strong>created_at</strong></td>
+<td><strong>datetime</strong></td>
+</tr>
+<tr>
+<td><strong>updated_at</strong></td>
+<td><strong>datetime</strong></td>
 </tr>
 </tbody></table>
 <h2 id='listing-payment-modes'>Listing payment modes</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
@@ -1268,7 +1342,9 @@ GET https://api.octobat.com/payment_modes/
   </span><span class="s2">"invoice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_in_14219457353oiq78b051b1"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"payment_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-01-28"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"customer_bank_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"payment_mode"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="s2">"payment_mode"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h3 id='attributes'>Attributes</h3>
@@ -1301,6 +1377,14 @@ GET https://api.octobat.com/payment_modes/
 <tr>
 <td><strong>payment_mode:</strong></td>
 <td><strong>object required</strong> Payment mode object. See previous section for attributes and details</td>
+</tr>
+<tr>
+<td><strong>created_at:</strong></td>
+<td><strong>datetime</strong></td>
+</tr>
+<tr>
+<td><strong>updated_at:</strong></td>
+<td><strong>datetime</strong></td>
 </tr>
 </tbody></table>
 
