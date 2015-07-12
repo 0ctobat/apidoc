@@ -233,7 +233,8 @@ GET https://api.octobat.com/numbering_sequences/
   </span><span class="s2">"billing_address_state"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"billing_address_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"business_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B2B"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">,</span><span class="w">
+  </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"octobat_billing_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -305,6 +306,10 @@ GET https://api.octobat.com/numbering_sequences/
 <td><strong>updated_at:</strong></td>
 <td><strong>datetime</strong> ISO8601 format</td>
 </tr>
+<tr>
+<td><strong>octobat_billing_page</strong></td>
+<td><strong>string</strong> The url of a page listing all customer&rsquo;s invoices</td>
+</tr>
 </tbody></table>
 <h2 id='create-a-customer'>Create a customer</h2><pre><code class="highlight plaintext"># Definition
 POST https://api.octobat.com/customers
@@ -336,6 +341,7 @@ POST https://api.octobat.com/customers
   <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
   <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
   <span class="s2">"vat_number"</span>: null,
+  <span class="s2">"octobat_billing_page"</span>: <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span>,
   <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
   <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="o">}</span>
@@ -372,7 +378,8 @@ POST https://api.octobat.com/customers
  <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
  <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
- <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span> <span class="p">,</span>
+ <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
  <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
  <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
@@ -453,6 +460,7 @@ GET https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span c
   <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
   <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
   <span class="s2">"vat_number"</span>: null,
+  <span class="s2">"octobat_billing_page"</span>: <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span>,
   <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
   <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="o">}</span>
@@ -481,6 +489,7 @@ GET https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span c
  <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
  <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
  <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
  <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
@@ -524,6 +533,7 @@ PATCH https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span
   <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
   <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
   <span class="s2">"vat_number"</span>: null,
+  <span class="s2">"octobat_billing_page"</span>: <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span>,
   <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
   <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="o">}</span>
@@ -558,6 +568,7 @@ PATCH https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span
  <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
  <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+ <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
  <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
  <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
@@ -644,6 +655,7 @@ GET https://api.octobat.com/customers/
       <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
       <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
       <span class="s2">"vat_number"</span>: null,
+      <span class="s2">"octobat_billing_page"</span>: <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span>,
       <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
       <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
     <span class="o">}</span>,
@@ -679,6 +691,7 @@ GET https://api.octobat.com/customers/
      <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
      <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
      <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
      <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
      <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
     <span class="p">},</span>
@@ -719,6 +732,7 @@ GET https://api.octobat.com/customers/
    </span><span class="s2">"billing_address_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"business_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B2C"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"octobat_billing_page"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
   </span><span class="p">},</span><span class="w">
@@ -874,6 +888,7 @@ POST https://www.octobat.com/api/invoices
     <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
     <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
     <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
     <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
     <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
   <span class="p">},</span>
@@ -1049,6 +1064,7 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
     <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
     <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
     <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
     <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
     <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
   <span class="p">},</span>
