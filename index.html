@@ -19,32 +19,9 @@
   </head>
 
   <body class="index">
-    <header style="z-index:1000;">
-      <div class="container">
-        <span id="brand-logo">
-          <a href="https://www.octobat.com/"><img height="64px" src="images/logo1.png" /></a>
-        </span>
-        <ul id="lp-menu">
-          <li>
-            <a href="https://www.octobat.com/how_it_works">How it works</a>
-          </li>
-          <li>
-            <a href="https://www.octobat.com/team">Our team</a>
-          </li>
-          <li>
-            <a href="https://www.octobat.com/pricing">Pricing</a>
-          </li>
-          <li>
-            <a href="http://blog.octobat.com">Blog</a>
-          </li>
-        </ul>
-
-      </div>
-    </header>
-    <a href="#" id="nav-button">
+    <a href="https://www.octobat.com/" id="nav-button" target="_blank">
       <span>
-        NAV
-        <img src="images/navbar.png" />
+        <img src="images/logo_api.png" />
       </span>
     </a>
     <div class="tocify-wrapper">
@@ -112,6 +89,121 @@ You can manage your API keys from your account. Your API keys carry many privile
 </code></pre>
 
 <p>Octobat uses conventional HTTP response codes to indicate success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from the provided information (e.g. a required parameter was missing, a charge failed, etc.), and codes in the 5xx range indicate an error with Octobat&rsquo;s servers.</p>
+<h1 id='pagination'>Pagination</h1><pre><code class="highlight shell"><span class="c"># Example request</span>
+<span class="gp">$ </span>curl https://api.octobat.com/customers?limit<span class="o">=</span>3 <span class="se">\</span>
+   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"object"</span>: <span class="s2">"list"</span>,
+  <span class="s2">"has_more"</span>: <span class="nb">true</span>,
+  <span class="s2">"total_count"</span>: 240,
+  <span class="s2">"data"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+      <span class="s2">"object"</span> : <span class="s2">"customer"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Octobat Inc."</span>,
+      <span class="s2">"email"</span>: <span class="s2">"admin@octobat.com"</span>,
+      <span class="s2">"phone_number"</span>: <span class="s2">"+33 9 52 54 03 70"</span>,
+      <span class="s2">"billing_address_line1"</span>: null,
+      <span class="s2">"billing_address_line2"</span>: null,
+      <span class="s2">"billing_address_city"</span>: <span class="s2">"Paris"</span>,
+      <span class="s2">"billing_address_zip"</span>: <span class="s2">"75004"</span>,
+      <span class="s2">"billing_address_state"</span>: null,
+      <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
+      <span class="s2">"business_type"</span>: <span class="s2">"B2B"</span>,
+      <span class="s2">"vat_number"</span>: null,
+      <span class="s2">"octobat_billing_page"</span>: <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span>,
+      <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+      <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>,
+    <span class="o">{</span>...<span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Example request</span>
+<span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="ss">limit: </span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::ListObject:0x3fe634d74498&gt; JSON: {</span>
+  <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"list"</span><span class="p">,</span>
+  <span class="s2">"has_more"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+  <span class="s2">"total_count"</span><span class="p">:</span> <span class="mi">240</span><span class="p">,</span>
+  <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="c1">#&lt;Octobat::Customer id=oc_cu_1421878635hksc26e4de79 0x00000a&gt; JSON: {</span>
+     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+     <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+     <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Octobat Inc."</span><span class="p">,</span>
+     <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"admin@octobat.com"</span><span class="p">,</span>
+     <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+     <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+     <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+     <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+     <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2B"</span><span class="p">,</span>
+     <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+     <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
+     <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+     <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+    <span class="p">},</span>
+    <span class="c1">#&lt;Octobat::Customer[...] ...&gt;,</span>
+    <span class="c1">#&lt;Octobat::Customer[...] ...&gt;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+</code></pre>
+
+<p>All top-level Octobat API resources have support for bulk fetches &ldquo;list&rdquo; API methods. For instance, you can list customers, list invoices.
+Like Stripe, Octobat uses cursor-based pagination using the parameter <code class="prettyprint">starting_after</code>. Pass <code class="prettyprint">starting_after</code> parameter at the previous page last object id value to determine where to start in the list.</p>
+<h3 id='attributes'>Attributes</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>limit</strong></td>
+<td><strong>integer optional</strong>  A limit on the number of objects to be returned. Must be included between 1 and 100</td>
+</tr>
+<tr>
+<td><strong>starting_after</strong></td>
+<td><strong>string optional</strong> A cursor for use in pagination. <code class="prettyprint">starting_after</code> is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with <code class="prettyprint">obj_foo</code>, your subsequent call can include <code class="prettyprint">starting_after=obj_foo</code> in order to fetch the next page of the list.</td>
+</tr>
+<tr>
+<td><strong>ending_before</strong></td>
+<td><strong>string optional</strong> A cursor for use in pagination. <code class="prettyprint">ending_before</code> is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with <code class="prettyprint">obj_bar</code>, your subsequent call can include <code class="prettyprint">ending_before=obj_bar</code> in order to fetch the previous page of the list.</td>
+</tr>
+</tbody></table>
+<h3 id='list-response-format'>List response format</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>object</strong></td>
+<td><strong>string, value is &ldquo;list&rdquo;</strong></td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td><strong>array</strong> An array containing the actual response elements, paginated by any request parameters.</td>
+</tr>
+<tr>
+<td><strong>has_more</strong></td>
+<td><strong>boolean</strong> Whether or not there are more elements available after this page. If <code class="prettyprint">false</code>, this page is the end of the list.</td>
+</tr>
+<tr>
+<td><strong>total_count</strong></td>
+<td><strong>boolean</strong> The total count of all recipients that match your filters, as if there was no pagination.</td>
+</tr>
+</tbody></table>
 <h1 id='nested-objects'>Nested objects</h1><pre><code class="highlight shell"><span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers?include[]<span class="o">=</span>invoices <span class="se">\</span>
    -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
@@ -174,6 +266,8 @@ GET https://api.octobat.com/numbering_sequences/
 <span class="c"># Example response</span>
 <span class="o">{</span>
   <span class="s2">"object"</span>: <span class="s2">"list"</span>,
+  <span class="s2">"has_more"</span>: <span class="nb">false</span>,
+  <span class="s2">"total_count"</span>: 3,
   <span class="s2">"data"</span>: <span class="o">[</span>
     <span class="o">{</span>
       <span class="s2">"id"</span>: <span class="s2">"oc_ns_14235277139j06b2fa639d"</span>,
@@ -199,6 +293,8 @@ GET https://api.octobat.com/numbering_sequences/
 <span class="c1"># Example response</span>
 <span class="c1">#&lt;Octobat::ListObject:0x3fe634d74498&gt; JSON: {</span>
   <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"list"</span><span class="p">,</span>
+  <span class="s2">"has_more"</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+  <span class="s2">"total_count"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
   <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
     <span class="c1">#&lt;Octobat::NumberingSequence id=oc_ns_14235277139j06b2fa639d 0x00000a&gt; JSON: {</span>
       <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_ns_14235277139j06b2fa639d"</span><span class="p">,</span>
@@ -640,6 +736,8 @@ GET https://api.octobat.com/customers/
 <span class="c"># Example response</span>
 <span class="o">{</span>
   <span class="s2">"object"</span>: <span class="s2">"list"</span>,
+  <span class="s2">"has_more"</span>: <span class="nb">false</span>,
+  <span class="s2">"total_count"</span>: 3,
   <span class="s2">"data"</span>: <span class="o">[</span>
     <span class="o">{</span>
       <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
@@ -676,6 +774,8 @@ GET https://api.octobat.com/customers/
 <span class="c1"># Example response</span>
 <span class="c1">#&lt;Octobat::ListObject:0x3fe634d74498&gt; JSON: {</span>
   <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"list"</span><span class="p">,</span>
+  <span class="s2">"has_more"</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+  <span class="s2">"total_count"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
   <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
     <span class="c1">#&lt;Octobat::Customer id=oc_cu_1421878635hksc26e4de79 0x00000a&gt; JSON: {</span>
      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
@@ -757,6 +857,8 @@ GET https://api.octobat.com/customers/
   </span><span class="s2">"business_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B2C"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"invoice_items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"has_more"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
     </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span><span class="w">
@@ -913,6 +1015,8 @@ POST https://www.octobat.com/api/invoices
   <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
   <span class="s2">"invoice_items"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"object"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">,</span>
+    <span class="s2">"has_more"</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+    <span class="s2">"total_count"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
@@ -1089,6 +1193,8 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
   <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
   <span class="s2">"invoice_items"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"object"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">,</span>
+    <span class="s2">"has_more"</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+    <span class="s2">"total_count"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
@@ -1302,6 +1408,8 @@ GET https://api.octobat.com/payment_modes/
 <span class="c"># Example response</span>
 <span class="o">{</span>
   <span class="s2">"object"</span>: <span class="s2">"list"</span>,
+  <span class="s2">"has_more"</span>: <span class="nb">false</span>,
+  <span class="s2">"total_count"</span>: 3,
   <span class="s2">"data"</span>: <span class="o">[</span>
     <span class="o">{</span>
       <span class="s2">"id"</span>: <span class="s2">"oc_pm_14235210139j06befa616a"</span>,
@@ -1329,6 +1437,8 @@ GET https://api.octobat.com/payment_modes/
 <span class="c1"># Example response</span>
 <span class="c1">#&lt;Octobat::ListObject:0x3fe634d74498&gt; JSON: {</span>
   <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"list"</span><span class="p">,</span>
+  <span class="s2">"has_more"</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+  <span class="s2">"total_count"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
   <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
     <span class="c1">#&lt;Octobat::PaymentMode id=oc_pm_14235210139j06befa616a 0x00000a&gt; JSON: {</span>
       <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
