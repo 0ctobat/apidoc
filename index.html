@@ -966,6 +966,12 @@ GET https://api.octobat.com/customers/
     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
   </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"sources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+       </span><span class="s2">"gateway"</span><span class="p">:</span><span class="s2">"stripe"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"identifier"</span><span class="p">:</span><span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1142,6 +1148,12 @@ POST https://www.octobat.com/api/invoices
     <span class="p">}</span>
   <span class="p">],</span>
   <span class="s2">"payment"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"sources"</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">"gateway"</span><span class="p">:</span><span class="s2">"stripe"</span><span class="p">,</span>
+       <span class="s2">"identifier"</span><span class="p">:</span><span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span>
+     <span class="p">}</span>
+  <span class="p">],</span>
   <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
   <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
@@ -1349,6 +1361,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
     <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
     <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
   <span class="p">},</span>
+  <span class="s2">"sources"</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">"gateway"</span><span class="p">:</span><span class="s2">"stripe"</span><span class="p">,</span>
+       <span class="s2">"identifier"</span><span class="p">:</span><span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span>
+     <span class="p">}</span>
+  <span class="p">],</span>
   <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
   <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
@@ -1548,6 +1566,12 @@ POST https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<spa
     <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
     <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
   <span class="p">},</span>
+  <span class="s2">"sources"</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">"gateway"</span><span class="p">:</span><span class="s2">"stripe"</span><span class="p">,</span>
+       <span class="s2">"identifier"</span><span class="p">:</span><span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span>
+     <span class="p">}</span>
+  <span class="p">],</span>
   <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
   <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
@@ -1723,6 +1747,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
     <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
     <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
   <span class="p">},</span>
+  <span class="s2">"sources"</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">"gateway"</span><span class="p">:</span><span class="s2">"stripe"</span><span class="p">,</span>
+       <span class="s2">"identifier"</span><span class="p">:</span><span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span>
+     <span class="p">}</span>
+  <span class="p">],</span>
   <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
   <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
 <span class="p">}</span>
