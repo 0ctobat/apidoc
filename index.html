@@ -866,6 +866,9 @@ GET https://api.octobat.com/customers/
   </span><span class="s2">"invoice_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-02-08"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eur"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"pdf_file_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"extratax_amount_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">15610</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax_amount_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">3590</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax_included_amount_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">19200</span><span class="p">,</span><span class="w">
   </span><span class="s2">"customer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customer"</span><span class="p">,</span><span class="w">
@@ -893,9 +896,6 @@ GET https://api.octobat.com/customers/
   </span><span class="s2">"customer_address_zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
   </span><span class="s2">"customer_address_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"France"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"customer_vat_number"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"extratax_amount_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">15610</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax_amount_cents"</span><span class="p">:</span><span class="w"> </span><span class="mi">3590</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"tax_included_amount_cents"</span><span class="err">,</span><span class="w"> </span><span class="err">19200,</span><span class="w">
   </span><span class="s2">"supplier_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Octobat"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"supplier_legal_form"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inc"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"supplier_siret"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
@@ -1049,7 +1049,7 @@ POST https://www.octobat.com/api/invoices
   <span class="s2">"pdf_file_url"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
   <span class="s2">"extratax_amount_cents"</span><span class="p">:</span> <span class="mi">6651</span><span class="p">,</span>
   <span class="s2">"tax_amount_cents"</span><span class="p">:</span> <span class="mi">1149</span><span class="p">,</span>
-  <span class="s2">"tax_included_amount_cents"</span><span class="p">,</span> <span class="mi">7800</span><span class="p">,</span>
+  <span class="s2">"tax_included_amount_cents"</span><span class="p">:</span> <span class="mi">7800</span><span class="p">,</span>
   <span class="s2">"customer"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
     <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
@@ -1248,7 +1248,7 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
   <span class="s2">"pdf_file_url"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
   <span class="s2">"extratax_amount_cents"</span><span class="p">:</span> <span class="mi">6651</span><span class="p">,</span>
   <span class="s2">"tax_amount_cents"</span><span class="p">:</span> <span class="mi">1149</span><span class="p">,</span>
-  <span class="s2">"tax_included_amount_cents"</span><span class="p">,</span> <span class="mi">7800</span><span class="p">,</span>
+  <span class="s2">"tax_included_amount_cents"</span><span class="p">:</span> <span class="mi">7800</span><span class="p">,</span>
   <span class="s2">"customer"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
     <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
@@ -1456,7 +1456,7 @@ POST https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<spa
   <span class="s2">"pdf_file_url"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
   <span class="s2">"extratax_amount_cents"</span><span class="p">:</span> <span class="mi">6651</span><span class="p">,</span>
   <span class="s2">"tax_amount_cents"</span><span class="p">:</span> <span class="mi">1149</span><span class="p">,</span>
-  <span class="s2">"tax_included_amount_cents"</span><span class="p">,</span> <span class="mi">7800</span><span class="p">,</span>
+  <span class="s2">"tax_included_amount_cents"</span><span class="p">:</span> <span class="mi">7800</span><span class="p">,</span>
   <span class="s2">"customer"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
     <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
@@ -1640,7 +1640,7 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
   <span class="s2">"pdf_file_url"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
   <span class="s2">"extratax_amount_cents"</span><span class="p">:</span> <span class="mi">6651</span><span class="p">,</span>
   <span class="s2">"tax_amount_cents"</span><span class="p">:</span> <span class="mi">1149</span><span class="p">,</span>
-  <span class="s2">"tax_included_amount_cents"</span><span class="p">,</span> <span class="mi">7800</span><span class="p">,</span>
+  <span class="s2">"tax_included_amount_cents"</span><span class="p">:</span> <span class="mi">7800</span><span class="p">,</span>
   <span class="s2">"customer"</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
     <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
