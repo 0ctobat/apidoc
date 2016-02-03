@@ -49,21 +49,21 @@ https://api.octobat.com
 <p>To make the Octobat API as secure as possible. Authentication is performed through HTTP Basic Auth. Credentials can be found on your Octobat account menu, in the &ldquo;API Keys&rdquo; section.</p>
 <h1 id='authentication'>Authentication</h1><pre><code class="highlight shell"><span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt:
 
 <span class="c"># curl uses the -u flag to pass basic auth credentials</span>
-<span class="c"># (adding a colon after your API key will prevent it </span>
+<span class="c"># (adding a colon after your secret API key will prevent it </span>
 <span class="c"># from asking you for a password).</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Example request</span>
 <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="c1"># Authentication is transparently handled for you</span>
 <span class="c1"># in subsequent method calls.</span>
 </code></pre>
 
-<p>Authentication to the API occurs via HTTP Basic Auth. Provide your API key as the basic auth username. You do not need to provide a password.
+<p>Authentication to the API occurs via HTTP Basic Auth. Provide your API secret key as the basic auth username. You do not need to provide a password.
 All API requests must be made over HTTPS. Calls made over plain HTTP will fail. You must authenticate for all requests.
 You can manage your API keys from your account. Your API keys carry many privileges, so be sure to keep them secret!</p>
 <h1 id='errors'>Errors</h1><pre><code class="highlight plaintext">HTTP status codes summary
@@ -91,7 +91,7 @@ You can manage your API keys from your account. Your API keys carry many privile
 <p>Octobat uses conventional HTTP response codes to indicate success or failure of an API request. In general, codes in the 2xx range indicate success, codes in the 4xx range indicate an error that resulted from the provided information (e.g. a required parameter was missing, a charge failed, etc.), and codes in the 5xx range indicate an error with Octobat&rsquo;s servers.</p>
 <h1 id='pagination'>Pagination</h1><pre><code class="highlight shell"><span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers?limit<span class="o">=</span>3 <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt:
 
 <span class="c"># Example response</span>
 <span class="o">{</span>
@@ -124,7 +124,7 @@ You can manage your API keys from your account. Your API keys carry many privile
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Example request</span>
 <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="ss">limit: </span><span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># Example response</span>
@@ -206,11 +206,11 @@ Like Stripe, Octobat uses cursor-based pagination using the parameter <code clas
 </tbody></table>
 <h1 id='nested-objects'>Nested objects</h1><pre><code class="highlight shell"><span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers?include[]<span class="o">=</span>invoices <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt:
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Example request</span>
 <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="ss">include: </span><span class="p">[</span><span class="s1">'invoices'</span><span class="p">])</span>
 </code></pre>
 
@@ -261,7 +261,7 @@ GET https://api.octobat.com/numbering_sequences/
 
 <span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/numbering_sequences <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt:
 
 <span class="c"># Example response</span>
 <span class="o">{</span>
@@ -286,7 +286,7 @@ GET https://api.octobat.com/numbering_sequences/
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">NumberingSequence</span><span class="p">.</span><span class="nf">all</span>
 
@@ -422,7 +422,7 @@ POST https://api.octobat.com/customers
 </code></pre>
 <pre><code class="highlight shell"><span class="c"># Example Request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
    -d <span class="nv">email</span><span class="o">=</span><span class="s2">"contact@octobat.com"</span> <span class="se">\</span>
    -d <span class="nv">name</span><span class="o">=</span><span class="s2">"Octobat Inc."</span> <span class="se">\</span>
    -d <span class="nv">phone_number</span><span class="o">=</span><span class="s2">"+33 9 52 54 03 70"</span> <span class="se">\</span>
@@ -455,7 +455,7 @@ POST https://api.octobat.com/customers
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
   <span class="ss">name: </span><span class="s2">"Octobat Inc."</span><span class="p">,</span>
@@ -551,7 +551,7 @@ GET https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span c
 
 <span class="c"># Example Request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers/oc_cu_1421878635hksc26e4de79 <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt:
 
 <span class="c"># Example response</span>
 <span class="o">{</span>
@@ -584,7 +584,7 @@ GET https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span c
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">)</span>
 
@@ -635,7 +635,7 @@ PATCH https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span
 
 <span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers/oc_cu_1421878635hksc26e4de79 <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
    -d <span class="nv">email</span><span class="o">=</span><span class="s2">"admin@octobat.com"</span>
 
 <span class="c"># Example response</span>
@@ -672,7 +672,7 @@ PATCH https://api.octobat.com/customers/<span class="o">{</span>CUSTOMER_ID<span
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="n">customer</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">)</span>
 <span class="n">customer</span><span class="p">.</span><span class="nf">email</span> <span class="o">=</span> <span class="s2">"admin@octobat.com"</span>
@@ -767,7 +767,7 @@ GET https://api.octobat.com/customers/
 
 <span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/customers <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt:
 
 <span class="c"># Example response</span>
 <span class="o">{</span>
@@ -809,7 +809,7 @@ GET https://api.octobat.com/customers/
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">all</span>
 
@@ -984,7 +984,7 @@ POST https://www.octobat.com/api/invoices
 
 <span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/invoices <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
    -d <span class="nv">customer_id</span><span class="o">=</span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span> <span class="se">\</span>
    -d <span class="nv">currency</span><span class="o">=</span><span class="s2">"eur"</span> <span class="se">\</span>
    -d payable_by[]<span class="o">=</span><span class="s2">"oc_pm_14235210139j06befa616a"</span>
@@ -1081,7 +1081,7 @@ POST https://www.octobat.com/api/invoices
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
   <span class="ss">currency: </span><span class="s2">"eur"</span><span class="p">,</span>
@@ -1228,7 +1228,7 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
 <span class="n">invoice</span><span class="p">.</span><span class="nf">customer_address_line1</span> <span class="o">=</span> <span class="s2">"5th Avenue, 1830"</span>
@@ -1439,7 +1439,7 @@ POST https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<spa
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
 <span class="n">invoice</span><span class="p">.</span><span class="nf">send</span>
@@ -1619,7 +1619,7 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
 <span class="n">invoice</span><span class="p">.</span><span class="nf">pay</span><span class="p">(</span>
@@ -1909,7 +1909,7 @@ GET https://api.octobat.com/payment_modes/
 
 <span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/payment_modes <span class="se">\</span>
-   -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt:
+   -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt:
 
 <span class="c"># Example response</span>
 <span class="o">{</span>
@@ -1936,7 +1936,7 @@ GET https://api.octobat.com/payment_modes/
 
 <span class="c1"># Example request</span>
 <span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
-<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_key_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">PaymentMode</span><span class="p">.</span><span class="nf">all</span>
 
