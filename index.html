@@ -985,8 +985,8 @@ POST https://www.octobat.com/api/invoices
 <span class="c"># Example request</span>
 <span class="gp">$ </span>curl https://api.octobat.com/invoices <span class="se">\</span>
    -u oc_key_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
-   -d <span class="nv">numbering_sequence_id</span><span class="o">=</span><span class="s2">"oc_ns_14213467384iwj86515b55"</span> <span class="se">\</span>
    -d <span class="nv">customer_id</span><span class="o">=</span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span> <span class="se">\</span>
+   -d <span class="nv">currency</span><span class="o">=</span><span class="s2">"eur"</span> <span class="se">\</span>
    -d payable_by[]<span class="o">=</span><span class="s2">"oc_pm_14235210139j06befa616a"</span>
 
 
@@ -1085,7 +1085,6 @@ POST https://www.octobat.com/api/invoices
 
 <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
   <span class="ss">currency: </span><span class="s2">"eur"</span><span class="p">,</span>
-  <span class="ss">numbering_sequence_id: </span><span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
   <span class="ss">customer_id: </span><span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
   <span class="ss">payable_by: </span><span class="p">[</span><span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">]</span>
 <span class="p">)</span>
@@ -1195,11 +1194,15 @@ POST https://www.octobat.com/api/invoices
 </tr>
 <tr>
 <td><strong>numbering_sequence_id:</strong></td>
-<td><strong>string required</strong> Numbering sequence ID</td>
+<td><strong>string optional</strong> Numbering sequence ID. Fallbacks to default numbering sequence if not filled</td>
 </tr>
 <tr>
 <td><strong>payable_by:</strong></td>
 <td><strong>array optional</strong> Array of Payment methods IDs</td>
+</tr>
+<tr>
+<td><strong>description:</strong></td>
+<td><strong>string optional</strong> Global description of the invoice</td>
 </tr>
 <tr>
 <td><strong>evidence:</strong></td>
