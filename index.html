@@ -928,11 +928,12 @@ GET https://api.octobat.com/customers/
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span><span class="w">
         </span><span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"vat_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
         </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
@@ -1307,11 +1308,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1319,11 +1321,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"2 hours extratim"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">1818</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1331,11 +1334,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
        <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">4000</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1515,11 +1519,12 @@ POST https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<spa
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1527,11 +1532,12 @@ POST https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<spa
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"2 hours extratim"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">1818</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1539,11 +1545,12 @@ POST https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<spa
        <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">4000</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1699,11 +1706,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1711,11 +1719,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"2 hours extratim"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">1818</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1723,11 +1732,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
        <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
         <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
         <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
         <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
         <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">4000</span><span class="p">,</span>
         <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
-        <span class="s2">"vat_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
-        <span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
         <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span><span class="p">,</span>
         <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
         <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
@@ -1796,11 +1806,12 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14545911337463c688866b"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span><span class="w">
   </span><span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"vat_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"payment_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax_rate"</span><span class="p">:</span><span class="mf">20.0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
   </span><span class="s2">"eservice"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-07-12T11:22:29Z"</span><span class="w">
@@ -1824,20 +1835,24 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 <td><strong>string</strong> equals to invoice_item</td>
 </tr>
 <tr>
+<td><strong>invoice_id:</strong></td>
+<td><strong>string required</strong> Invoice ID the invoice item belongs to</td>
+</tr>
+<tr>
 <td><strong>description:</strong></td>
 <td><strong>string required</strong> Description of the invoice line</td>
 </tr>
 <tr>
 <td><strong>extratax_cents:</strong></td>
-<td><strong>integer optional</strong> The extratax amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">payment_cents</code> field is blank.</td>
+<td><strong>integer optional</strong> The extratax amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">tax_included_cents</code> field is blank.</td>
 </tr>
 <tr>
-<td><strong>payment_cents:</strong></td>
+<td><strong>tax_included_cents:</strong></td>
 <td><strong>integer optional</strong> The all tax included amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">extratax_cents</code> field is blank.</td>
 </tr>
 <tr>
-<td><strong>vat_rate:</strong></td>
-<td><strong>float optional</strong> The VAT rate of the transaction. Each time you create an invoice item, we try to compute the rate automatically in function of customer (B2B, B2C), transaction type (goods, services, eservices), and location (EU country, non-EU, &hellip;). Fill this field, only if you want to override our automatic calculation, if you have a specific rate for instance.</td>
+<td><strong>tax_rate:</strong></td>
+<td><strong>float optional</strong> The tax rate of the transaction. Each time you create an invoice item, we try to compute the rate automatically in function of customer (B2B, B2C), transaction type (goods, services, eservices), and location (EU country, non-EU, &hellip;). Fill this field, only if you want to override our automatic calculation, if you have a specific rate for instance.</td>
 </tr>
 <tr>
 <td><strong>eservice:</strong></td>
@@ -1852,6 +1867,100 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 <td><strong>datetime</strong></td>
 </tr>
 </tbody></table>
+<h2 id='create-an-invoice-item'>Create an invoice item</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+POST https://api.octobat.com/invoice_items/
+
+<span class="c"># Example request</span>
+curl https://api.octobat.com/payment_modes <span class="se">\</span>
+  -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+  -d <span class="nv">description</span><span class="o">=</span><span class="s2">"Monthly subscription"</span> <span class="se">\</span>
+  -d <span class="nv">invoice_id</span><span class="o">=</span><span class="s2">"oc_in_14545911337463c688866b"</span> <span class="se">\</span>
+  -d <span class="nv">tax_included_cents</span><span class="o">=</span>6000
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"id"</span>:<span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span>,
+  <span class="s2">"object"</span>:<span class="s2">"invoice_item"</span>,
+  <span class="s2">"invoice_id"</span>:<span class="s2">"oc_in_14545911337463c688866b"</span>,
+  <span class="s2">"description"</span>:<span class="s2">"Monthly subscription"</span>,
+  <span class="s2">"extratax_cents"</span>:5000,
+  <span class="s2">"quantity"</span>:1,
+  <span class="s2">"tax_rate"</span>:20.0,
+  <span class="s2">"tax_included_cents"</span>:6000,
+  <span class="s2">"eservice"</span>:true,
+  <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+  <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="no">Octobat</span><span class="o">::</span><span class="no">InvoiceItem</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+  <span class="ss">invoice_id: </span><span class="s2">"oc_in_14545911337463c688866b"</span><span class="p">,</span>
+  <span class="ss">description: </span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+  <span class="ss">tax_included_cents: </span><span class="mi">6000</span>
+<span class="p">)</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
+ <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
+ <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+ <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14545911337463c688866b"</span><span class="p">,</span>
+ <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+ <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">5000</span><span class="p">,</span>
+ <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+ <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+ <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">6000</span><span class="p">,</span>
+ <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
+ <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+ <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>You can add invoice items to a draft invoice from the moment it has been created until it is confirmed.</p>
+<h3 id='arguments'>Arguments</h3>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>id:</strong></td>
+<td><strong>string</strong></td>
+</tr>
+<tr>
+<td><strong>object:</strong></td>
+<td><strong>string</strong> equals to invoice_item</td>
+</tr>
+<tr>
+<td><strong>invoice_id:</strong></td>
+<td><strong>string required</strong> Invoice ID the invoice item belongs to. Must be a draft invoice.</td>
+</tr>
+<tr>
+<td><strong>description:</strong></td>
+<td><strong>string required</strong> Description of the invoice line</td>
+</tr>
+<tr>
+<td><strong>extratax_cents:</strong></td>
+<td><strong>integer optional</strong> The extratax amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">tax_included_cents</code> field is blank.</td>
+</tr>
+<tr>
+<td><strong>tax_included_cents:</strong></td>
+<td><strong>integer optional</strong> The all tax included amount of the line in cents. Currency applied is the invoice&rsquo;s currency. Mandatory if the <code class="prettyprint">extratax_cents</code> field is blank.</td>
+</tr>
+<tr>
+<td><strong>tax_rate:</strong></td>
+<td><strong>float optional</strong> The tax rate of the transaction. Each time you create an invoice item, we try to compute the rate automatically in function of customer (B2B, B2C), transaction type (goods, services, eservices), and location (EU country, non-EU, &hellip;). Fill this field, only if you want to override our automatic calculation, if you have a specific rate for instance.</td>
+</tr>
+<tr>
+<td><strong>eservice:</strong></td>
+<td><strong>boolean optional</strong> Indicates if it&rsquo;s an online-sold service, without any manual intervention, as indicated in the 2015-EU VAT laws. Defaults to your account default value if not filled.</td>
+</tr>
+</tbody></table>
+<h3 id='returns'>Returns</h3>
+<p>Returns the invoice item object if the creation succeeds. Returns an error if parameters are invalid</p>
 <h1 id='payment-modes'>Payment modes</h1><h2 id='the-payment-mode-object'>The payment mode object</h2>
 <blockquote>
 <p>Example object</p>
