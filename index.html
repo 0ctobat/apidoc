@@ -1610,14 +1610,448 @@ POST https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<spa
 </tbody></table>
 <h3 id='returns'>Returns</h3>
 <p>Returns the full invoice object if the update succeeded. Returns an error if the invoice customer email is empty or if the invoice has compliance errors</p>
+<h2 id='confirm-a-draft-invoice'>Confirm a draft invoice</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
+PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<span class="o">}</span>/confirm
+
+<span class="c"># Example request</span>
+curl https://www.octobat.com/invoices/oc_in_14234251141rdhb20d40fe/confirm <span class="se">\</span>
+ -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+ -X PATCH
+
+<span class="c"># Example response</span>
+<span class="o">{</span>
+  <span class="s2">"id"</span>: <span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+  <span class="s2">"object"</span>: <span class="s2">"invoice"</span>,
+  <span class="s2">"livemode"</span>: <span class="nb">true</span>,
+  <span class="s2">"state"</span>: <span class="s2">"confirmed"</span>,
+  <span class="s2">"numbering_sequence_id"</span>: <span class="s2">"oc_ns_14213467384iwj86515b55"</span>,
+  <span class="s2">"invoice_number"</span>: <span class="s2">"OC-2015-100"</span>,
+  <span class="s2">"invoice_date"</span>: <span class="s2">"2015-02-08"</span>,
+  <span class="s2">"currency"</span>: <span class="s2">"eur"</span>,
+  <span class="s2">"pdf_file_url"</span>: null,
+  <span class="s2">"extratax_amount_cents"</span>: 6651,
+  <span class="s2">"tax_amount_cents"</span>: 1149,
+  <span class="s2">"tax_included_amount_cents"</span>: 7800,
+  <span class="s2">"customer"</span>: <span class="o">{</span>
+    <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+    <span class="s2">"object"</span>: <span class="s2">"customer"</span>,
+    <span class="s2">"name"</span>: <span class="s2">"My customer"</span>,
+    <span class="s2">"email"</span>: <span class="s2">"contact@octobat.com"</span>,
+    <span class="s2">"phone_number"</span>: <span class="s2">"+33 9 52 54 03 70"</span>,
+    <span class="s2">"billing_address_line1"</span>: null,
+    <span class="s2">"billing_address_line2"</span>: null,
+    <span class="s2">"billing_address_city"</span>: <span class="s2">"Paris"</span>,
+    <span class="s2">"billing_address_zip"</span>: <span class="s2">"75004"</span>,
+    <span class="s2">"billing_address_state"</span>: null,
+    <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
+    <span class="s2">"business_type"</span>: <span class="s2">"B2C"</span>,
+    <span class="s2">"vat_number"</span>: null,
+    <span class="s2">"octobat_billing_page"</span>: <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span>,
+    <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+    <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+  <span class="o">}</span>,
+  <span class="s2">"customer_id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+  <span class="s2">"customer_name"</span>: <span class="s2">"My Customer"</span>,
+  <span class="s2">"customer_address_line1"</span>: null,
+  <span class="s2">"customer_address_line2"</span>: null,
+  <span class="s2">"customer_address_city"</span>: <span class="s2">"Paris"</span>,
+  <span class="s2">"customer_address_state"</span>: null,
+  <span class="s2">"customer_address_zip"</span>: <span class="s2">"75004"</span>,
+  <span class="s2">"customer_address_country"</span>: <span class="s2">"France"</span>,
+  <span class="s2">"customer_vat_number"</span>: null,
+  <span class="s2">"supplier_name"</span>: <span class="s2">"Octobat"</span>,
+  <span class="s2">"supplier_legal_form"</span>: <span class="s2">"Inc"</span>,
+  <span class="s2">"supplier_siret"</span>: <span class="s2">""</span>,
+  <span class="s2">"supplier_address"</span>: <span class="s2">"25 rue du Petit Musc"</span>,
+  <span class="s2">"supplier_zip_code"</span>: <span class="s2">"75004"</span>,
+  <span class="s2">"supplier_city"</span>: <span class="s2">"Paris"</span>,
+  <span class="s2">"supplier_country"</span>: <span class="s2">"France"</span>,
+  <span class="s2">"supplier_vat_number"</span>: <span class="s2">"FR60528551658"</span>,
+  <span class="s2">"supplier_capital_stock"</span>: <span class="s2">"1000"</span>,
+  <span class="s2">"business_type"</span>: <span class="s2">"B2C"</span>,
+  <span class="s2">"compliance"</span>: <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"count"</span>: 0,
+      <span class="s2">"fields"</span>:[]
+    <span class="o">}</span>,
+    <span class="s2">"warnings"</span>: <span class="o">{</span>
+      <span class="s2">"count"</span>: 1,
+      <span class="s2">"fields"</span>: <span class="o">[</span>
+        <span class="s2">"customer_address"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>,
+  <span class="s2">"invoice_items"</span>: <span class="o">{</span>
+    <span class="s2">"object"</span>:<span class="s2">"list"</span>,
+    <span class="s2">"has_more"</span>: <span class="nb">false</span>,
+    <span class="s2">"total_count"</span>: 3,
+    <span class="s2">"data"</span>: <span class="o">[</span>
+      <span class="c">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span>:<span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span>,
+        <span class="s2">"object"</span>:<span class="s2">"invoice_item"</span>,
+        <span class="s2">"invoice_id"</span>:<span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+        <span class="s2">"description"</span>:<span class="s2">"Monthly subscription"</span>,
+        <span class="s2">"extratax_cents"</span>:833,
+        <span class="s2">"quantity"</span>:1,
+        <span class="s2">"tax_rate"</span>:20.0,
+        <span class="s2">"tax_included_cents"</span>:1000,
+        <span class="s2">"eservice"</span>:true,
+        <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+        <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="o">}</span>,
+      <span class="c">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span>:<span class="s2">"oc_ii_14234251155z6y590f99f9"</span>,
+        <span class="s2">"object"</span>:<span class="s2">"invoice_item"</span>,
+        <span class="s2">"invoice_id"</span>:<span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+        <span class="s2">"description"</span>:<span class="s2">"2 hours extratim"</span>,
+        <span class="s2">"extratax_cents"</span>:1818,
+        <span class="s2">"quantity"</span>:1,
+        <span class="s2">"tax_rate"</span>:10.0,
+        <span class="s2">"tax_included_cents"</span>:2000,
+        <span class="s2">"eservice"</span>:true,
+        <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+        <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="o">}</span>,
+       <span class="c">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span>:<span class="s2">"oc_ii_14234271095z6y590f59fb"</span>,
+        <span class="s2">"object"</span>:<span class="s2">"invoice_item"</span>,
+        <span class="s2">"invoice_id"</span>:<span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+        <span class="s2">"description"</span>:<span class="s2">"Monthly subscription"</span>,
+        <span class="s2">"extratax_cents"</span>:4000,
+        <span class="s2">"quantity"</span>:1,
+        <span class="s2">"tax_rate"</span>:20.0,
+        <span class="s2">"tax_included_cents"</span>:4800,
+        <span class="s2">"eservice"</span>:false,
+        <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+        <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">"payable_by"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"oc_pm_14235210139j06befa616a"</span>,
+      <span class="s2">"object"</span>: <span class="s2">"payment_mode"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Bank name"</span>,
+      <span class="s2">"payment_mode_type"</span>: <span class="s2">"transfer"</span>,
+      <span class="s2">"details"</span>: <span class="o">{</span>
+        <span class="s2">"iban"</span>: <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"payment"</span>: <span class="o">{}</span>,
+  <span class="s2">"sources"</span>: <span class="o">[</span>
+     <span class="o">{</span>
+       <span class="s2">"gateway"</span>:<span class="s2">"stripe"</span>,
+       <span class="s2">"identifier"</span>:<span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span>
+     <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+  <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+<span class="o">}</span>
+</code></pre>
+<pre><code class="highlight ruby"><span class="c1"># Definition</span>
+<span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
+<span class="n">invoice</span><span class="p">.</span><span class="nf">confirm</span>
+
+<span class="c1"># Example request</span>
+<span class="o">&gt;&gt;</span> <span class="nb">require</span> <span class="s2">"octobat"</span>
+<span class="no">Octobat</span><span class="p">.</span><span class="nf">api_key</span> <span class="o">=</span> <span class="s2">"oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt"</span>
+
+<span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
+<span class="n">invoice</span><span class="p">.</span><span class="nf">confirm</span><span class="p">()</span>
+
+<span class="c1"># Example response</span>
+<span class="c1">#&lt;Octobat::Invoice id=oc_in_14234251141rdhb20d40fe 0x00000a&gt; JSON: {{</span>
+  <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
+  <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"invoice"</span><span class="p">,</span>
+  <span class="s2">"livemode"</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+  <span class="s2">"state"</span><span class="p">:</span> <span class="s2">"confirmed"</span><span class="p">,</span>
+  <span class="s2">"numbering_sequence_id"</span><span class="p">:</span> <span class="s2">"oc_ns_14213467384iwj86515b55"</span><span class="p">,</span>
+  <span class="s2">"invoice_number"</span><span class="p">:</span> <span class="s2">"OC-2015-100"</span><span class="p">,</span>
+  <span class="s2">"invoice_date"</span><span class="p">:</span> <span class="s2">"2015-02-08"</span><span class="p">,</span>
+  <span class="s2">"currency"</span><span class="p">:</span> <span class="s2">"eur"</span><span class="p">,</span>
+  <span class="s2">"pdf_file_url"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"extratax_amount_cents"</span><span class="p">:</span> <span class="mi">6651</span><span class="p">,</span>
+  <span class="s2">"tax_amount_cents"</span><span class="p">:</span> <span class="mi">1149</span><span class="p">,</span>
+  <span class="s2">"tax_included_amount_cents"</span><span class="p">:</span> <span class="mi">7800</span><span class="p">,</span>
+  <span class="s2">"customer"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+    <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"customer"</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"My customer"</span><span class="p">,</span>
+    <span class="s2">"email"</span><span class="p">:</span> <span class="s2">"contact@octobat.com"</span><span class="p">,</span>
+    <span class="s2">"phone_number"</span><span class="p">:</span> <span class="s2">"+33 9 52 54 03 70"</span><span class="p">,</span>
+    <span class="s2">"billing_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+    <span class="s2">"billing_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+    <span class="s2">"billing_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"billing_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+    <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
+    <span class="s2">"vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="s2">"octobat_billing_page"</span><span class="p">:</span> <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span><span class="p">,</span>
+    <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+    <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+  <span class="p">},</span>
+  <span class="s2">"customer_id"</span><span class="p">:</span> <span class="s2">"oc_cu_1421878635hksc26e4de79"</span><span class="p">,</span>
+  <span class="s2">"customer_name"</span><span class="p">:</span> <span class="s2">"My Customer"</span><span class="p">,</span>
+  <span class="s2">"customer_address_line1"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_line2"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+  <span class="s2">"customer_address_state"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"customer_address_zip"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+  <span class="s2">"customer_address_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+  <span class="s2">"customer_vat_number"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+  <span class="s2">"supplier_name"</span><span class="p">:</span> <span class="s2">"Octobat"</span><span class="p">,</span>
+  <span class="s2">"supplier_legal_form"</span><span class="p">:</span> <span class="s2">"Inc"</span><span class="p">,</span>
+  <span class="s2">"supplier_siret"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="s2">"supplier_address"</span><span class="p">:</span> <span class="s2">"25 rue du Petit Musc"</span><span class="p">,</span>
+  <span class="s2">"supplier_zip_code"</span><span class="p">:</span> <span class="s2">"75004"</span><span class="p">,</span>
+  <span class="s2">"supplier_city"</span><span class="p">:</span> <span class="s2">"Paris"</span><span class="p">,</span>
+  <span class="s2">"supplier_country"</span><span class="p">:</span> <span class="s2">"France"</span><span class="p">,</span>
+  <span class="s2">"supplier_vat_number"</span><span class="p">:</span> <span class="s2">"FR60528551658"</span><span class="p">,</span>
+  <span class="s2">"supplier_capital_stock"</span><span class="p">:</span> <span class="s2">"1000"</span><span class="p">,</span>
+  <span class="s2">"business_type"</span><span class="p">:</span> <span class="s2">"B2C"</span><span class="p">,</span>
+  <span class="s2">"compliance"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"errors"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"count"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"fields"</span><span class="p">:[]</span>
+    <span class="p">},</span>
+    <span class="s2">"warnings"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"count"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">"fields"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"customer_address"</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"invoice_items"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"object"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">,</span>
+    <span class="s2">"has_more"</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span>
+    <span class="s2">"total_count"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">833</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="p">},</span>
+      <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234251155z6y590f99f9"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"2 hours extratim"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">1818</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">true</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="p">},</span>
+       <span class="c1">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span><span class="p">:</span><span class="s2">"oc_ii_14234271095z6y590f59fb"</span><span class="p">,</span>
+        <span class="s2">"object"</span><span class="p">:</span><span class="s2">"invoice_item"</span><span class="p">,</span>
+        <span class="s2">"invoice_id"</span><span class="p">:</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span><span class="s2">"Monthly subscription"</span><span class="p">,</span>
+        <span class="s2">"extratax_cents"</span><span class="p">:</span><span class="mi">4000</span><span class="p">,</span>
+        <span class="s2">"quantity"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"tax_rate"</span><span class="p">:</span><span class="mi">20</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"tax_included_cents"</span><span class="p">:</span><span class="mi">4800</span><span class="p">,</span>
+        <span class="s2">"eservice"</span><span class="p">:</span><span class="kp">false</span><span class="p">,</span>
+        <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+        <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">"payable_by"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"oc_pm_14235210139j06befa616a"</span><span class="p">,</span>
+      <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"payment_mode"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Bank name"</span><span class="p">,</span>
+      <span class="s2">"payment_mode_type"</span><span class="p">:</span> <span class="s2">"transfer"</span><span class="p">,</span>
+      <span class="s2">"details"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"iban"</span><span class="p">:</span> <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"payment"</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">"sources"</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">"gateway"</span><span class="p">:</span><span class="s2">"stripe"</span><span class="p">,</span>
+       <span class="s2">"identifier"</span><span class="p">:</span><span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span>
+     <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"created_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span><span class="p">,</span>
+  <span class="s2">"updated_at"</span><span class="p">:</span> <span class="s2">"2015-07-12T11:22:29Z"</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='returns'>Returns</h3>
+<p>After creating a draft invoice and adding invoice items, you have to confirm it before sending it to the customer. A payment mode must have attached.
+Returns the full invoice object if the update succeeded. Returns an error if update parameters are invalid</p>
 <h2 id='declare-as-paid'>Declare as paid</h2><pre><code class="highlight shell"><span class="c"># Definition</span>
 PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<span class="o">}</span>/pay
 
 <span class="c"># Example request</span>
-
+curl https://www.octobat.com/invoices/oc_in_14234251141rdhb20d40fe/pay <span class="se">\</span>
+ -u oc_test_skey_tkHCYYOUVrYyY5rBFZxNzgtt: <span class="se">\</span>
+ -d payment[payment_date]<span class="o">=</span><span class="s1">'2016-02-04'</span> <span class="se">\</span>
+ -d payment[customer_bank_country]<span class="o">=</span><span class="s1">'UK'</span> <span class="se">\</span>
+ -d payment[payment_mode]<span class="o">=</span><span class="s2">"oc_pm_14238493313wqfa5849d26"</span> <span class="se">\</span>
+ -X PATCH
 
 <span class="c"># Example response</span>
-
+<span class="o">{</span>
+  <span class="s2">"id"</span>: <span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+  <span class="s2">"object"</span>: <span class="s2">"invoice"</span>,
+  <span class="s2">"livemode"</span>: <span class="nb">true</span>,
+  <span class="s2">"state"</span>: <span class="s2">"paid"</span>,
+  <span class="s2">"numbering_sequence_id"</span>: <span class="s2">"oc_ns_14213467384iwj86515b55"</span>,
+  <span class="s2">"invoice_number"</span>: <span class="s2">"OC-2015-100"</span>,
+  <span class="s2">"invoice_date"</span>: <span class="s2">"2015-02-08"</span>,
+  <span class="s2">"currency"</span>: <span class="s2">"eur"</span>,
+  <span class="s2">"pdf_file_url"</span>: null,
+  <span class="s2">"extratax_amount_cents"</span>: 6651,
+  <span class="s2">"tax_amount_cents"</span>: 1149,
+  <span class="s2">"tax_included_amount_cents"</span>: 7800,
+  <span class="s2">"customer"</span>: <span class="o">{</span>
+    <span class="s2">"id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+    <span class="s2">"object"</span>: <span class="s2">"customer"</span>,
+    <span class="s2">"name"</span>: <span class="s2">"My customer"</span>,
+    <span class="s2">"email"</span>: <span class="s2">"contact@octobat.com"</span>,
+    <span class="s2">"phone_number"</span>: <span class="s2">"+33 9 52 54 03 70"</span>,
+    <span class="s2">"billing_address_line1"</span>: null,
+    <span class="s2">"billing_address_line2"</span>: null,
+    <span class="s2">"billing_address_city"</span>: <span class="s2">"Paris"</span>,
+    <span class="s2">"billing_address_zip"</span>: <span class="s2">"75004"</span>,
+    <span class="s2">"billing_address_state"</span>: null,
+    <span class="s2">"billing_address_country"</span>: <span class="s2">"France"</span>,
+    <span class="s2">"business_type"</span>: <span class="s2">"B2C"</span>,
+    <span class="s2">"vat_number"</span>: null,
+    <span class="s2">"octobat_billing_page"</span>: <span class="s2">"https://b.octobat.com/c/1421878635hksc26e4de79"</span>,
+    <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+    <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+  <span class="o">}</span>,
+  <span class="s2">"customer_id"</span>: <span class="s2">"oc_cu_1421878635hksc26e4de79"</span>,
+  <span class="s2">"customer_name"</span>: <span class="s2">"My Customer"</span>,
+  <span class="s2">"customer_address_line1"</span>: null,
+  <span class="s2">"customer_address_line2"</span>: null,
+  <span class="s2">"customer_address_city"</span>: <span class="s2">"Paris"</span>,
+  <span class="s2">"customer_address_state"</span>: null,
+  <span class="s2">"customer_address_zip"</span>: <span class="s2">"75004"</span>,
+  <span class="s2">"customer_address_country"</span>: <span class="s2">"France"</span>,
+  <span class="s2">"customer_vat_number"</span>: null,
+  <span class="s2">"supplier_name"</span>: <span class="s2">"Octobat"</span>,
+  <span class="s2">"supplier_legal_form"</span>: <span class="s2">"Inc"</span>,
+  <span class="s2">"supplier_siret"</span>: <span class="s2">""</span>,
+  <span class="s2">"supplier_address"</span>: <span class="s2">"25 rue du Petit Musc"</span>,
+  <span class="s2">"supplier_zip_code"</span>: <span class="s2">"75004"</span>,
+  <span class="s2">"supplier_city"</span>: <span class="s2">"Paris"</span>,
+  <span class="s2">"supplier_country"</span>: <span class="s2">"France"</span>,
+  <span class="s2">"supplier_vat_number"</span>: <span class="s2">"FR60528551658"</span>,
+  <span class="s2">"supplier_capital_stock"</span>: <span class="s2">"1000"</span>,
+  <span class="s2">"business_type"</span>: <span class="s2">"B2C"</span>,
+  <span class="s2">"compliance"</span>: <span class="o">{</span>
+    <span class="s2">"errors"</span>: <span class="o">{</span>
+      <span class="s2">"count"</span>: 0,
+      <span class="s2">"fields"</span>:[]
+    <span class="o">}</span>,
+    <span class="s2">"warnings"</span>: <span class="o">{</span>
+      <span class="s2">"count"</span>: 1,
+      <span class="s2">"fields"</span>: <span class="o">[</span>
+        <span class="s2">"customer_address"</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">}</span>,
+  <span class="s2">"invoice_items"</span>: <span class="o">{</span>
+    <span class="s2">"object"</span>:<span class="s2">"list"</span>,
+    <span class="s2">"has_more"</span>: <span class="nb">false</span>,
+    <span class="s2">"total_count"</span>: 3,
+    <span class="s2">"data"</span>: <span class="o">[</span>
+      <span class="c">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y1bdf99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span>:<span class="s2">"oc_ii_14234251155z6y1bdf99f9"</span>,
+        <span class="s2">"object"</span>:<span class="s2">"invoice_item"</span>,
+        <span class="s2">"invoice_id"</span>:<span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+        <span class="s2">"description"</span>:<span class="s2">"Monthly subscription"</span>,
+        <span class="s2">"extratax_cents"</span>:833,
+        <span class="s2">"quantity"</span>:1,
+        <span class="s2">"tax_rate"</span>:20.0,
+        <span class="s2">"tax_included_cents"</span>:1000,
+        <span class="s2">"eservice"</span>:true,
+        <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+        <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="o">}</span>,
+      <span class="c">#&lt;Octobat::InvoiceItem id=oc_ii_14234251155z6y590f99f9 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span>:<span class="s2">"oc_ii_14234251155z6y590f99f9"</span>,
+        <span class="s2">"object"</span>:<span class="s2">"invoice_item"</span>,
+        <span class="s2">"invoice_id"</span>:<span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+        <span class="s2">"description"</span>:<span class="s2">"2 hours extratim"</span>,
+        <span class="s2">"extratax_cents"</span>:1818,
+        <span class="s2">"quantity"</span>:1,
+        <span class="s2">"tax_rate"</span>:10.0,
+        <span class="s2">"tax_included_cents"</span>:2000,
+        <span class="s2">"eservice"</span>:true,
+        <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+        <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="o">}</span>,
+       <span class="c">#&lt;Octobat::InvoiceItem id=oc_ii_14234271095z6y590f59fb 0x00000a&gt; JSON: {</span>
+        <span class="s2">"id"</span>:<span class="s2">"oc_ii_14234271095z6y590f59fb"</span>,
+        <span class="s2">"object"</span>:<span class="s2">"invoice_item"</span>,
+        <span class="s2">"invoice_id"</span>:<span class="s2">"oc_in_14234251141rdhb20d40fe"</span>,
+        <span class="s2">"description"</span>:<span class="s2">"Monthly subscription"</span>,
+        <span class="s2">"extratax_cents"</span>:4000,
+        <span class="s2">"quantity"</span>:1,
+        <span class="s2">"tax_rate"</span>:20.0,
+        <span class="s2">"tax_included_cents"</span>:4800,
+        <span class="s2">"eservice"</span>:false,
+        <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+        <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+      <span class="o">}</span>
+    <span class="o">]</span>
+  <span class="o">}</span>,
+  <span class="s2">"payable_by"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"oc_pm_14235210139j06befa616a"</span>,
+      <span class="s2">"object"</span>: <span class="s2">"payment_mode"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Bank name"</span>,
+      <span class="s2">"payment_mode_type"</span>: <span class="s2">"transfer"</span>,
+      <span class="s2">"details"</span>: <span class="o">{</span>
+        <span class="s2">"iban"</span>: <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"payment"</span>: <span class="o">{</span>
+    <span class="s2">"id"</span>: <span class="s2">"oc_pa_14234412027lw37c15a717"</span>,
+    <span class="s2">"object"</span>: <span class="s2">"payment"</span>,
+    <span class="s2">"invoice"</span>: <span class="s2">"oc_in_14219457353oiq78b051b1"</span>,
+    <span class="s2">"payment_date"</span>: <span class="s2">"2015-01-05"</span>,
+    <span class="s2">"customer_bank_country"</span>: <span class="s2">"United Kingdom"</span>,
+    <span class="s2">"payment_mode"</span>: <span class="o">{</span>
+      <span class="s2">"id"</span>: <span class="s2">"oc_pm_14235210139j06befa616a"</span>,
+      <span class="s2">"object"</span>: <span class="s2">"payment_mode"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Bank name"</span>,
+      <span class="s2">"payment_mode_type"</span>: <span class="s2">"transfer"</span>,
+      <span class="s2">"details"</span>: <span class="o">{</span>
+        <span class="s2">"iban"</span>: <span class="s2">"FR90 17216 18009 17038133245 88"</span>
+      <span class="o">}</span>
+    <span class="o">}</span>,
+    <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+    <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+  <span class="o">}</span>,
+  <span class="s2">"sources"</span>: <span class="o">[</span>
+     <span class="o">{</span>
+       <span class="s2">"gateway"</span>:<span class="s2">"stripe"</span>,
+       <span class="s2">"identifier"</span>:<span class="s2">"ch_16xjM32Pmv0nOG11rJ9U1hXj"</span>
+     <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"created_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>,
+  <span class="s2">"updated_at"</span>: <span class="s2">"2015-07-12T11:22:29Z"</span>
+<span class="o">}</span>
 </code></pre>
 <pre><code class="highlight ruby"><span class="c1"># Definition</span>
 <span class="n">invoice</span> <span class="o">=</span> <span class="no">Octobat</span><span class="o">::</span><span class="no">Invoice</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="s2">"oc_in_14234251141rdhb20d40fe"</span><span class="p">)</span>
@@ -1792,7 +2226,7 @@ PATCH https://www.octobat.com/api/invoices/<span class="o">{</span>INVOICE_ID<sp
 </thead><tbody>
 <tr>
 <td><strong>payment:</strong></td>
-<td><strong>object optional</strong> A nested payment object. Mandatory if the invoice state equals to <code class="prettyprint">paid</code>. See the corresponding section to have details on how to fill this object.</td>
+<td><strong>object required</strong> A nested payment object. See the corresponding section to have details on how to fill this object.</td>
 </tr>
 </tbody></table>
 <h3 id='returns'>Returns</h3>
